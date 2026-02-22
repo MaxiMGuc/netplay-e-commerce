@@ -1,55 +1,38 @@
-import { useState, useMemo } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import products from './data/products'
 import Header from './components/Header/Header'
-import HeroBanner from './components/HeroBanner/HeroBanner'
-import SearchBar from './components/SearchBar/SearchBar'
-import CategoryFilter from './components/CategoryFilter/CategoryFilter'
-import ProductGrid from './components/ProductGrid/ProductGrid'
+import Sidebar from './components/Sidebar/Sidebar'
 import Footer from './components/Footer/Footer'
+import Home from './pages/Home/Home'
+import Catalog from './pages/Catalog/Catalog'
+import Categories from './pages/Categories/Categories'
+import About from './pages/About/About'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
+import Cart from './pages/Cart/Cart'
 
 function App() {
-  const [search, setSearch] = useState('')
-  const [category, setCategory] = useState('All')
-  const [cart, setCart] = useState([])
-
-  const filteredProducts = useMemo(() => {
-    return products.filter((p) => {
-      const matchesSearch = p.name
-        .toLowerCase()
-        .includes(search.toLowerCase())
-      const matchesCategory =
-        category === 'All' || p.category === category
-      return matchesSearch && matchesCategory
-    })
-  }, [search, category])
-
-  const handleAddToCart = (product) => {
-    setCart((prev) => [...prev, product])
-  }
-
   return (
     <div className="app">
-      <Header cartCount={cart.length} />
-      <HeroBanner />
+      <Header />
 
-      <main className="main" id="products">
-        <div className="toolbar">
-          <SearchBar value={search} onChange={setSearch} />
-          <CategoryFilter active={category} onChange={setCategory} />
+      <div className="app-body">
+        <Sidebar />
+
+        <div className="app-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+
+          <Footer />
         </div>
-
-        <p className="results-count">
-          {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''} found
-        </p>
-
-        <ProductGrid
-          products={filteredProducts}
-          onAddToCart={handleAddToCart}
-        />
-      </main>
-
-      <Footer />
+      </div>
     </div>
   )
 }
