@@ -1,20 +1,20 @@
 /* ========== CategoryFilter ========== */
 .category-filter {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
 }
 
 .category-filter-btn {
-  padding: 0.45rem 1rem;
+  padding: 0.35rem 0.85rem;
   border: 1px solid var(--border-color);
   border-radius: 20px;
-  background: #fff;
+  background: var(--bg-white, #fff);
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all var(--transition);
   font-family: inherit;
 }
 

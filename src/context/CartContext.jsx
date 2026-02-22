@@ -1,4 +1,26 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
+
+// Ключ для localStorage
+const CART_STORAGE_KEY = 'racketmarket_cart'
+
+// Загрузить корзину из localStorage
+function loadCart() {
+  try {
+    const data = localStorage.getItem(CART_STORAGE_KEY)
+    return data ? JSON.parse(data) : []
+  } catch {
+    return []
+  }
+}
+
+// Сохранить корзину в localStorage
+function saveCart(items) {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
+  } catch {
+    // Если localStorage недоступен — ничего не делаем
+  }
+}
 
 // Создаём контекст
 const CartContext = createContext()
@@ -10,22 +32,25 @@ export function useCart() {
 
 // Провайдер — оборачивает приложение и даёт доступ к корзине
 export function CartProvider({ children }) {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState(loadCart)
+
+  // Сохраняем корзину при каждом изменении
+  useEffect(() => {
+    saveCart(items)
+  }, [items])
 
   // Добавить товар в корзину
-  const addToCart = (product) => {
+  const addToCart = (product, quantity = 1) => {
     setItems((prev) => {
       const existing = prev.find((item) => item.id === product.id)
       if (existing) {
-        // Если уже есть — увеличиваем количество
         return prev.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + quantity }
             : item
         )
       }
-      // Если нет — добавляем с количеством 1
-      return [...prev, { ...product, quantity: 1 }]
+      return [...prev, { ...product, quantity }]
     })
   }
 
@@ -47,9 +72,27 @@ export function CartProvider({ children }) {
     )
   }
 
+  // Установить конкретное количество
+  const setQuantity = (id, quantity) => {
+    if (quantity <= 0) {
+      removeFromCart(id)
+      return
+    }
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity } : item
+      )
+    )
+  }
+
   // Очистить корзину
   const clearCart = () => {
     setItems([])
+  }
+
+  // Проверить, есть ли товар в корзине
+  const isInCart = (id) => {
+    return items.some((item) => item.id === id)
   }
 
   // Общее количество товаров
@@ -68,7 +111,9 @@ export function CartProvider({ children }) {
         addToCart,
         removeFromCart,
         updateQuantity,
+        setQuantity,
         clearCart,
+        isInCart,
         totalItems,
         totalPrice,
       }}

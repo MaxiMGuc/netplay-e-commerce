@@ -9,29 +9,31 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  background: #fff;
+  padding: 0.45rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-white, #fff);
   color: var(--text);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all var(--transition);
   font-family: inherit;
 }
 
 .sport-filter-btn:hover {
   border-color: var(--primary);
   color: var(--primary);
+  background: var(--primary-light);
 }
 
 .sport-filter-btn.active {
   background: var(--primary);
   color: #fff;
   border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
 }
 
 .sport-filter-icon {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }

@@ -1,8 +1,8 @@
 /* ========== HeroBanner ========== */
 .hero {
   background: var(--gradient);
-  border-radius: 16px;
-  padding: 3rem;
+  border-radius: var(--radius-lg);
+  padding: 3rem 3rem 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,21 +13,46 @@
   position: relative;
 }
 
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
 .hero-content {
   max-width: 560px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(4px);
 }
 
 .hero-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   line-height: 1.2;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .hero-subtitle {
-  font-size: 1rem;
-  opacity: 0.9;
-  line-height: 1.5;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.6;
   margin-bottom: 1.5rem;
 }
 
@@ -36,15 +61,16 @@
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-bottom: 1.75rem;
 }
 
 .hero-btn {
   padding: 0.7rem 1.5rem;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all var(--transition);
   font-family: inherit;
 }
 
@@ -55,6 +81,7 @@
 
 .hero-btn--primary:hover {
   background: #f0f0ff;
+  transform: translateY(-1px);
 }
 
 .hero-btn--outline {
@@ -68,15 +95,64 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* ========== Эмодзи-картинка ========== */
-.hero-image {
-  font-size: 8rem;
-  opacity: 0.3;
+/* ========== Статистика ========== */
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stat strong {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.hero-stat span {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* ========== Visual ========== */
+.hero-visual {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
 }
 
+.hero-visual-card {
+  width: 100px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform var(--transition);
+}
+
+.hero-visual-card:nth-child(2) {
+  transform: translateY(-20px);
+}
+
+.hero-visual-card:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+.hero-visual-card:nth-child(2):hover {
+  transform: translateY(-28px) scale(1.05);
+}
+
 /* ========== Адаптив ========== */
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .hero {
     padding: 2rem 1.5rem;
     flex-direction: column;
@@ -84,14 +160,18 @@
   }
 
   .hero-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .hero-buttons {
     justify-content: center;
   }
 
-  .hero-image {
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .hero-visual {
     display: none;
   }
 }
