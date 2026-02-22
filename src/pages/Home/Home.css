@@ -1,98 +1,173 @@
-/* ========== Home Page ========== */
-.home-section {
+/* ========== Home ========== */
+.home {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
+/* ========== Секции ========== */
+.home-section {
+  margin-bottom: 2.5rem;
 }
 
-.section-header h2 {
-  font-size: 1.5rem;
+.home-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.home-section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
   color: var(--text);
 }
 
-.see-all {
+.home-section-link {
+  font-size: 0.88rem;
   color: var(--primary);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: opacity 0.2s;
+  font-weight: 500;
 }
 
-.see-all:hover {
-  opacity: 0.8;
+.home-section-link:hover {
+  text-decoration: underline;
 }
 
-.home-section h2 {
-  font-size: 1.5rem;
-  color: var(--text);
-  margin-bottom: 1.5rem;
+/* ========== Виды спорта ========== */
+.home-sports {
+  margin-bottom: 2.5rem;
 }
 
-.featured-grid {
+.home-sports .home-section-title {
+  margin-bottom: 1rem;
+}
+
+.home-sports-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 
-/* ========== Features ========== */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-
-.feature-card {
+.home-sport-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
   background: #fff;
-  border-radius: 16px;
-  padding: 2rem 1.5rem;
-  text-align: center;
   border: 1px solid var(--border-color);
-  transition: transform 0.25s, box-shadow 0.25s;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s;
 }
 
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+.home-sport-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+  transform: translateY(-2px);
 }
 
-.feature-icon {
+.home-sport-icon {
   font-size: 2.5rem;
-  display: block;
-  margin-bottom: 0.8rem;
 }
 
-.feature-card h3 {
-  font-size: 1.05rem;
+.home-sport-name {
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--text);
+}
+
+/* ========== Бренды ========== */
+.home-brands-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.home-brand-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.home-brand-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+  transform: translateY(-2px);
+}
+
+.home-brand-logo {
+  font-size: 2rem;
+}
+
+.home-brand-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ========== Преимущества ========== */
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.home-feature {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.home-feature-icon {
+  font-size: 2rem;
+  display: block;
   margin-bottom: 0.5rem;
 }
 
-.feature-card p {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
+.home-feature h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
 }
 
-@media (max-width: 700px) {
-  .home-section {
+.home-feature p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* ========== Адаптив ========== */
+@media (max-width: 768px) {
+  .home {
     padding: 1rem;
   }
 
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+  .home-sports-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .featured-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 1rem;
+  .home-brands-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-features {
+    grid-template-columns: 1fr;
   }
 }

@@ -3,97 +3,131 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  flex: 1;
 }
 
 .categories-title {
-  font-size: 1.8rem;
-  color: var(--text);
-  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
-.categories-title--sub {
-  margin-top: 3rem;
+.categories-section {
+  margin-bottom: 2.5rem;
 }
 
 .categories-subtitle {
-  color: var(--text-secondary);
-  font-size: 1.05rem;
-  margin-bottom: 2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text);
 }
 
-.categories-grid {
+/* ========== Виды спорта ========== */
+.categories-sports-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 
-.category-card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 2rem;
-  text-decoration: none;
-  border: 2px solid var(--border-color);
-  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+.categories-sport-card {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  overflow: hidden;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem 1rem;
+  background: #fff;
+  border: 2px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.2s;
 }
 
-.category-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--cat-color);
+.categories-sport-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
 }
 
-.category-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-  border-color: var(--cat-color);
-}
-
-.category-icon {
+.categories-sport-icon {
   font-size: 3rem;
-  margin-bottom: 1rem;
 }
 
-.category-card h2 {
-  font-size: 1.3rem;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-}
-
-.category-desc {
-  font-size: 0.92rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  margin-bottom: 1rem;
-  flex: 1;
-}
-
-.category-count {
-  display: inline-block;
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--primary);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.82rem;
+.categories-sport-name {
+  font-size: 1.05rem;
   font-weight: 600;
+  color: var(--text);
 }
 
-@media (max-width: 700px) {
+/* ========== Типы товаров ========== */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.categories-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.categories-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.08);
+}
+
+.categories-card-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.categories-card-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.15rem;
+}
+
+.categories-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ========== Заголовок секции с ссылкой ========== */
+.categories-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.categories-section-header .categories-subtitle {
+  margin-bottom: 0;
+}
+
+.categories-view-all {
+  font-size: 0.88rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.categories-view-all:hover {
+  text-decoration: underline;
+}
+
+/* ========== Адаптив ========== */
+@media (max-width: 768px) {
   .categories-page {
     padding: 1rem;
   }
 
-  .categories-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .categories-sports-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

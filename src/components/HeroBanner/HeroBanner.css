@@ -1,98 +1,97 @@
-/* ========== Hero Banner ========== */
+/* ========== HeroBanner ========== */
 .hero {
-  max-width: 1280px;
-  margin: 2rem auto;
-  padding: 3rem 2.5rem;
   background: var(--gradient);
-  border-radius: 20px;
+  border-radius: 16px;
+  padding: 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  margin-bottom: 2.5rem;
   color: #fff;
   overflow: hidden;
   position: relative;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 50%;
-}
-
 .hero-content {
   max-width: 560px;
-  position: relative;
-  z-index: 1;
 }
 
 .hero-title {
-  font-size: 2.8rem;
+  font-size: 2rem;
   font-weight: 800;
-  line-height: 1.15;
-  margin-bottom: 1rem;
-}
-
-.hero-title span {
-  color: #fbbf24;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
+  font-size: 1rem;
   opacity: 0.9;
-  line-height: 1.6;
-  margin-bottom: 1.8rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
 }
 
-.hero-cta {
-  display: inline-block;
+/* ========== Кнопки баннера ========== */
+.hero-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hero-btn {
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.hero-btn--primary {
   background: #fff;
   color: var(--primary);
-  padding: 0.85rem 2rem;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.hero-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+.hero-btn--primary:hover {
+  background: #f0f0ff;
 }
 
-.hero-visual {
+.hero-btn--outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.hero-btn--outline:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ========== Эмодзи-картинка ========== */
+.hero-image {
   font-size: 8rem;
-  position: relative;
-  z-index: 1;
-  animation: float 3s ease-in-out infinite;
+  opacity: 0.3;
+  flex-shrink: 0;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-/* ========== Responsive ========== */
+/* ========== Адаптив ========== */
 @media (max-width: 700px) {
   .hero {
+    padding: 2rem 1.5rem;
     flex-direction: column;
     text-align: center;
-    padding: 2rem 1.5rem;
-    margin: 1rem;
-    border-radius: 16px;
   }
 
   .hero-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
-  .hero-visual {
-    font-size: 5rem;
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-image {
+    display: none;
   }
 }

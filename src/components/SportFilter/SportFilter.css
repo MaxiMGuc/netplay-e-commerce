@@ -1,50 +1,37 @@
+/* ========== SportFilter ========== */
 .sport-filter {
-  margin-bottom: 1.5rem;
-}
-
-.sport-filter-title {
-  font-size: 1rem;
-  color: #64748b;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
-}
-
-.sport-filter-list {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.sport-btn {
+.sport-filter-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
   background: #fff;
-  cursor: pointer;
-  font-size: 0.95rem;
-  color: #475569;
-  transition: all 0.2s;
-}
-
-.sport-btn:hover {
-  border-color: #6366f1;
-  color: #6366f1;
-  background: #eef2ff;
-}
-
-.sport-btn.active {
-  border-color: #6366f1;
-  background: #6366f1;
-  color: #fff;
-}
-
-.sport-icon {
-  font-size: 1.2rem;
-}
-
-.sport-name {
+  color: var(--text);
+  font-size: 0.85rem;
   font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.sport-filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.sport-filter-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.sport-filter-icon {
+  font-size: 1.1rem;
 }

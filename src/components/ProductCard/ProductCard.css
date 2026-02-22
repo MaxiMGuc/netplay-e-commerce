@@ -1,122 +1,155 @@
-/* ========== Product Card ========== */
+/* ========== ProductCard ========== */
 .product-card {
   background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
+  border-radius: 12px;
   border: 1px solid var(--border-color);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
   display: flex;
   flex-direction: column;
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
-.card-image-wrapper {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  background: #f8f9fa;
-}
-
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.product-card:hover .card-image {
-  transform: scale(1.08);
-}
-
-.card-category {
+/* ========== Бейдж ========== */
+.product-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(4px);
-  padding: 0.25rem 0.7rem;
-  border-radius: 20px;
+  padding: 0.25rem 0.6rem;
   font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--primary);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  border-radius: 6px;
+  z-index: 2;
+  letter-spacing: 0.03em;
 }
 
-.card-body {
-  padding: 1rem 1.2rem 1.2rem;
+.product-badge--hit {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.product-badge--sale {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.product-badge--new {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* ========== Картинка ========== */
+.product-card-image-link {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.product-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.product-card:hover .product-card-image {
+  transform: scale(1.05);
+}
+
+/* ========== Информация ========== */
+.product-card-info {
+  padding: 1rem;
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
   flex: 1;
 }
 
-.card-title {
-  font-size: 0.95rem;
+.product-card-sport {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+
+.product-card-name {
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--text);
-  line-height: 1.4;
-  margin-bottom: 0.5rem;
+  text-decoration: none;
+  line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.card-meta {
-  margin-bottom: 0.8rem;
+.product-card-name:hover {
+  color: var(--primary);
 }
 
-.card-rating {
+/* ========== Рейтинг ========== */
+.product-card-rating {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-}
-
-.stars {
-  color: #f59e0b;
-  font-size: 0.85rem;
-}
-
-.rating-num {
   font-size: 0.8rem;
+}
+
+.product-card-stars {
+  color: #f59e0b;
+  letter-spacing: 1px;
+}
+
+.product-card-reviews {
   color: var(--text-secondary);
-  font-weight: 500;
+  font-size: 0.75rem;
 }
 
-.card-footer {
+/* ========== Цена ========== */
+.product-card-prices {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
 }
 
-.card-price {
-  font-size: 1.2rem;
-  font-weight: 800;
+.product-card-price {
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--text);
 }
 
-.add-to-cart {
+.product-card-old-price {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+/* ========== Кнопка ========== */
+.product-card-btn {
+  margin-top: auto;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
   background: var(--primary);
   color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-weight: 600;
   font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.2s;
+  font-family: inherit;
+  width: 100%;
 }
 
-.add-to-cart:hover {
+.product-card-btn:hover {
   background: var(--primary-dark);
-  transform: scale(1.05);
-}
-
-.add-to-cart:active {
-  transform: scale(0.97);
 }

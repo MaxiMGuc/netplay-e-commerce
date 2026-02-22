@@ -1,29 +1,13 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../../context/CartContext'
 import './Cart.css'
 
-// Демо-данные для примера (пустая корзина по умолчанию)
-const initialItems = []
-
+// Cart — страница корзины
+// Использует CartContext для чтения и изменения товаров
 function Cart() {
-  const [items, setItems] = useState(initialItems)
+  const { items, updateQuantity, removeFromCart, totalItems, totalPrice } = useCart()
 
-  const updateQuantity = (id, delta) => {
-    setItems((prev) =>
-      prev
-        .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + delta } : item
-        )
-        .filter((item) => item.quantity > 0)
-    )
-  }
-
-  const removeItem = (id) => {
-    setItems((prev) => prev.filter((item) => item.id !== id))
-  }
-
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-
+  // Пустая корзина
   if (items.length === 0) {
     return (
       <div className="cart-page">
@@ -46,14 +30,19 @@ function Cart() {
       <h1 className="cart-title">Корзина</h1>
 
       <div className="cart-layout">
+        {/* Список товаров */}
         <div className="cart-items">
           {items.map((item) => (
             <div key={item.id} className="cart-item">
-              <img src={item.image} alt={item.name} className="cart-item-image" />
+              <Link to={`/product/${item.id}`}>
+                <img src={item.image} alt={item.name} className="cart-item-image" />
+              </Link>
 
               <div className="cart-item-info">
-                <h3 className="cart-item-name">{item.name}</h3>
-                <p className="cart-item-price">{item.price.toFixed(2)} ₽</p>
+                <Link to={`/product/${item.id}`} className="cart-item-name">
+                  {item.name}
+                </Link>
+                <p className="cart-item-price">{item.price.toLocaleString('ru-RU')} ₽</p>
               </div>
 
               <div className="cart-item-quantity">
@@ -73,13 +62,13 @@ function Cart() {
               </div>
 
               <p className="cart-item-subtotal">
-                {(item.price * item.quantity).toFixed(2)} ₽
+                {(item.price * item.quantity).toLocaleString('ru-RU')} ₽
               </p>
 
               <button
                 className="cart-item-remove"
                 title="Удалить"
-                onClick={() => removeItem(item.id)}
+                onClick={() => removeFromCart(item.id)}
               >
                 ✕
               </button>
@@ -87,15 +76,16 @@ function Cart() {
           ))}
         </div>
 
+        {/* Итого */}
         <div className="cart-summary">
           <h2 className="cart-summary-title">Итого</h2>
           <div className="cart-summary-row">
             <span>Товаров:</span>
-            <span>{items.reduce((s, i) => s + i.quantity, 0)} шт.</span>
+            <span>{totalItems} шт.</span>
           </div>
           <div className="cart-summary-row cart-summary-total">
             <span>Сумма:</span>
-            <span>{total.toFixed(2)} ₽</span>
+            <span>{totalPrice.toLocaleString('ru-RU')} ₽</span>
           </div>
           <button className="cart-checkout-btn">Оформить заказ</button>
         </div>

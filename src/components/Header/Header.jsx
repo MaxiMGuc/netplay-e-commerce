@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useCart } from '../../context/CartContext'
 import './Header.css'
 
+// Header — шапка сайта с логотипом, поиском, авторизацией и корзиной
 function Header() {
   const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate()
+  const { totalItems } = useCart()
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
@@ -48,7 +51,12 @@ function Header() {
           <Link to="/login" className="header-auth-link">
             Вход / Регистрация
           </Link>
-          <Link to="/cart" className="header-icon-btn" title="Корзина">🛒</Link>
+          <Link to="/cart" className="header-cart-link" title="Корзина">
+            🛒
+            {totalItems > 0 && (
+              <span className="header-cart-badge">{totalItems}</span>
+            )}
+          </Link>
         </div>
       </div>
     </header>
