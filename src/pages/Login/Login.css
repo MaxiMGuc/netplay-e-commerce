@@ -1,34 +1,41 @@
-/* ========== Auth Pages (Login) ========== */
-/* Стили авторизации общие — дублируем для независимости */
+/* ========== Auth Pages - Netflix Dark ========== */
 .auth-page {
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
-  padding: 2rem;
+  padding: calc(var(--header-height) + 2rem) 2rem 2rem;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=1920&q=80') center center / cover no-repeat;
 }
 
 .auth-card {
-  background: #fff;
+  background: rgba(0, 0, 0, 0.75);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 2.5rem;
+  border-radius: var(--radius-md);
+  padding: 3rem;
   width: 100%;
-  max-width: 420px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  max-width: 450px;
 }
 
 .auth-title {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: var(--text);
+  color: #fff;
   margin-bottom: 0.25rem;
 }
 
 .auth-subtitle {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   margin-bottom: 1.5rem;
+}
+
+.auth-user-email {
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
 .auth-form {
@@ -46,64 +53,83 @@
 .auth-field label {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-secondary);
 }
 
 .auth-field input {
-  padding: 0.7rem 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  border: 1px solid #555;
+  border-radius: var(--radius-sm);
   font-size: 0.95rem;
   font-family: inherit;
-  color: var(--text);
+  color: #fff;
   transition: border-color 0.2s;
   outline: none;
-  background: var(--bg);
+  background: #333;
 }
 
 .auth-field input:focus {
-  border-color: var(--primary);
+  border-color: #fff;
 }
 
 .auth-field input::placeholder {
-  color: var(--text-secondary);
+  color: #888;
+}
+
+.auth-field input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .auth-submit {
   margin-top: 0.5rem;
-  padding: 0.75rem;
-  background: var(--gradient);
+  padding: 0.85rem;
+  background: var(--primary);
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  transition: opacity 0.2s, transform 0.1s;
+  transition: background 0.2s, transform 0.1s;
 }
 
-.auth-submit:hover {
-  opacity: 0.9;
+.auth-submit:hover:not(:disabled) {
+  background: var(--primary-dark);
 }
 
-.auth-submit:active {
+.auth-submit:active:not(:disabled) {
   transform: scale(0.98);
+}
+
+.auth-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .auth-switch {
   text-align: center;
   margin-top: 1.25rem;
   font-size: 0.88rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 .auth-switch a {
-  color: var(--primary);
+  color: #fff;
   text-decoration: none;
   font-weight: 600;
 }
 
 .auth-switch a:hover {
   text-decoration: underline;
+}
+
+.auth-error {
+  color: var(--primary);
+  font-size: 0.85rem;
+  background: var(--primary-light);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  text-align: center;
 }

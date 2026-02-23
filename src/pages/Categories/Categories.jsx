@@ -1,28 +1,30 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import products from '../../data/products'
 import ProductGrid from '../../components/ProductGrid/ProductGrid'
 import './Categories.css'
 
 // Categories — страница со всеми категориями и видами спорта
-const sports = [
-  { name: 'Бадминтон', icon: '🏸', color: '#6366f1' },
-  { name: 'Теннис', icon: '🎾', color: '#10b981' },
-  { name: 'Настольный теннис', icon: '🏓', color: '#f59e0b' },
-  { name: 'Сквош', icon: '💥', color: '#ef4444' },
-]
-
-const categories = [
-  { name: 'Ракетки', icon: '🏸', desc: 'Профессиональные и любительские' },
-  { name: 'Обувь', icon: '👟', desc: 'Кроссовки для зала и корта' },
-  { name: 'Одежда', icon: '👕', desc: 'Спортивная форма и экипировка' },
-  { name: 'Мячи', icon: '🎾', desc: 'Теннисные, для настольного тенниса и сквоша' },
-  { name: 'Воланы', icon: '🪶', desc: 'Перьевые и пластиковые' },
-  { name: 'Струны', icon: '🧵', desc: 'Для бадминтонных и теннисных ракеток' },
-  { name: 'Сумки', icon: '🎒', desc: 'Сумки и рюкзаки для снаряжения' },
-  { name: 'Аксессуары', icon: '🎽', desc: 'Обмотки, напульсники, кепки' },
-]
-
 function Categories() {
+  const { t } = useTranslation()
+
+  const sports = [
+    { name: t('home.badminton'), sportKey: 'Бадминтон', icon: '🏸', color: '#6366f1' },
+    { name: t('home.tennis'), sportKey: 'Теннис', icon: '🎾', color: '#10b981' },
+    { name: t('home.tableTennis'), sportKey: 'Настольный теннис', icon: '🏓', color: '#f59e0b' },
+    { name: t('home.squash'), sportKey: 'Сквош', icon: '💥', color: '#ef4444' },
+  ]
+
+  const categories = [
+    { name: t('categories.rackets'), icon: '🏸', desc: t('categories.racketsDesc'), key: 'Ракетки' },
+    { name: t('categories.shoes'), icon: '👟', desc: t('categories.shoesDesc'), key: 'Обувь' },
+    { name: t('categories.clothing'), icon: '👕', desc: t('categories.clothingDesc'), key: 'Одежда' },
+    { name: t('categories.shuttlecocks'), icon: '🪶', desc: t('categories.shuttlecocksDesc'), key: 'Воланы' },
+    { name: t('categories.strings'), icon: '🧵', desc: t('categories.stringsDesc'), key: 'Струны' },
+    { name: t('categories.bags'), icon: '🎒', desc: t('categories.bagsDesc'), key: 'Сумки' },
+    { name: t('categories.accessories'), icon: '🎽', desc: t('categories.accessoriesDesc'), key: 'Аксессуары' },
+  ]
+
   // Популярные товары для каждого вида спорта (по 4 шт)
   const badmintonProducts = products.filter((p) => p.sport === 'Бадминтон').slice(0, 4)
   const tennisProducts = products.filter((p) => p.sport === 'Теннис').slice(0, 4)
@@ -31,16 +33,16 @@ function Categories() {
 
   return (
     <main className="categories-page">
-      <h1 className="categories-title">Категории</h1>
+      <h1 className="categories-title">{t('categories.title')}</h1>
 
       {/* По видам спорта */}
       <section className="categories-section">
-        <h2 className="categories-subtitle">Виды спорта</h2>
+        <h2 className="categories-subtitle">{t('categories.sports')}</h2>
         <div className="categories-sports-grid">
           {sports.map((sport) => (
             <Link
-              key={sport.name}
-              to={`/catalog?sport=${encodeURIComponent(sport.name)}`}
+              key={sport.sportKey}
+              to={`/catalog?sport=${encodeURIComponent(sport.sportKey)}`}
               className="categories-sport-card"
               style={{ borderColor: sport.color }}
             >
@@ -53,12 +55,12 @@ function Categories() {
 
       {/* По категориям товаров */}
       <section className="categories-section">
-        <h2 className="categories-subtitle">Типы товаров</h2>
+        <h2 className="categories-subtitle">{t('categories.productTypes')}</h2>
         <div className="categories-grid">
           {categories.map((cat) => (
             <Link
-              key={cat.name}
-              to={`/catalog?category=${encodeURIComponent(cat.name)}`}
+              key={cat.key}
+              to={`/catalog?category=${encodeURIComponent(cat.key)}`}
               className="categories-card"
             >
               <span className="categories-card-icon">{cat.icon}</span>
@@ -74,8 +76,8 @@ function Categories() {
       {/* Популярные товары — Бадминтон */}
       <section className="categories-section">
         <div className="categories-section-header">
-          <h2 className="categories-subtitle">🏸 Бадминтон — популярное</h2>
-          <Link to="/catalog?sport=Бадминтон" className="categories-view-all">Все товары →</Link>
+          <h2 className="categories-subtitle">{t('categories.badmintonPopular')}</h2>
+          <Link to="/catalog?sport=Бадминтон" className="categories-view-all">{t('categories.viewAll')}</Link>
         </div>
         <ProductGrid products={badmintonProducts} />
       </section>
@@ -83,8 +85,8 @@ function Categories() {
       {/* Популярные товары — Теннис */}
       <section className="categories-section">
         <div className="categories-section-header">
-          <h2 className="categories-subtitle">🎾 Теннис — популярное</h2>
-          <Link to="/catalog?sport=Теннис" className="categories-view-all">Все товары →</Link>
+          <h2 className="categories-subtitle">{t('categories.tennisPopular')}</h2>
+          <Link to="/catalog?sport=Теннис" className="categories-view-all">{t('categories.viewAll')}</Link>
         </div>
         <ProductGrid products={tennisProducts} />
       </section>
@@ -92,8 +94,8 @@ function Categories() {
       {/* Популярные товары — Настольный теннис */}
       <section className="categories-section">
         <div className="categories-section-header">
-          <h2 className="categories-subtitle">🏓 Настольный теннис — популярное</h2>
-          <Link to="/catalog?sport=Настольный теннис" className="categories-view-all">Все товары →</Link>
+          <h2 className="categories-subtitle">{t('categories.tableTennisPopular')}</h2>
+          <Link to="/catalog?sport=Настольный теннис" className="categories-view-all">{t('categories.viewAll')}</Link>
         </div>
         <ProductGrid products={tableTennisProducts} />
       </section>
@@ -101,8 +103,8 @@ function Categories() {
       {/* Популярные товары — Сквош */}
       <section className="categories-section">
         <div className="categories-section-header">
-          <h2 className="categories-subtitle">💥 Сквош — популярное</h2>
-          <Link to="/catalog?sport=Сквош" className="categories-view-all">Все товары →</Link>
+          <h2 className="categories-subtitle">{t('categories.squashPopular')}</h2>
+          <Link to="/catalog?sport=Сквош" className="categories-view-all">{t('categories.viewAll')}</Link>
         </div>
         <ProductGrid products={squashProducts} />
       </section>

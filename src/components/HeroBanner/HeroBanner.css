@@ -1,177 +1,196 @@
-/* ========== HeroBanner ========== */
-.hero {
-  background: var(--gradient);
-  border-radius: var(--radius-lg);
-  padding: 3rem 3rem 2.5rem;
+/* ========== Netflix-Style Hero Banner ========== */
+.netflix-hero {
+  position: relative;
+  width: 100%;
+  min-height: 85vh;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 2.5rem;
-  color: #fff;
+  align-items: flex-end;
+  padding: 0 4%;
+  margin-top: calc(-1 * var(--header-height));
   overflow: hidden;
-  position: relative;
 }
 
-.hero::before {
-  content: '';
+/* ========== Background ========== */
+.netflix-hero-bg {
   position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
+  inset: 0;
+  background:
+    url('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=1920&q=80') center center / cover no-repeat,
+    #141414;
+  z-index: 0;
 }
 
-.hero-content {
-  max-width: 560px;
-  position: relative;
+.netflix-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, #141414 0%, transparent 50%),
+    linear-gradient(to right, rgba(20, 20, 20, 0.9) 0%, transparent 60%),
+    rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 
-.hero-badge {
+/* ========== Content ========== */
+.netflix-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  padding-bottom: 8%;
+  padding-top: calc(var(--header-height) + 4rem);
+}
+
+.netflix-hero-badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.3rem 0.85rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  background: rgba(229, 9, 20, 0.8);
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.netflix-hero-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.1;
   margin-bottom: 1rem;
-  backdrop-filter: blur(4px);
+  color: #fff;
+  text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-.hero-title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 0.85rem;
+.netflix-hero-desc {
+  font-size: 1.15rem;
+  color: #ccc;
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
+  text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+  max-width: 480px;
 }
 
-.hero-subtitle {
-  font-size: 0.95rem;
-  opacity: 0.85;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-/* ========== Кнопки баннера ========== */
-.hero-buttons {
+/* ========== Buttons ========== */
+.netflix-hero-buttons {
   display: flex;
   gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2.5rem;
 }
 
-.hero-btn {
-  padding: 0.7rem 1.5rem;
-  border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  font-weight: 600;
+.netflix-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 1.05rem;
+  font-weight: 700;
   text-decoration: none;
   transition: all var(--transition);
+  cursor: pointer;
+  border: none;
   font-family: inherit;
 }
 
-.hero-btn--primary {
+.netflix-hero-btn-icon {
+  font-size: 1.1rem;
+}
+
+.netflix-hero-btn--primary {
   background: #fff;
-  color: var(--primary);
+  color: #141414;
 }
 
-.hero-btn--primary:hover {
-  background: #f0f0ff;
-  transform: translateY(-1px);
+.netflix-hero-btn--primary:hover {
+  background: rgba(255, 255, 255, 0.8);
 }
 
-.hero-btn--outline {
-  background: transparent;
+.netflix-hero-btn--secondary {
+  background: rgba(109, 109, 110, 0.7);
   color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-.hero-btn--outline:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+.netflix-hero-btn--secondary:hover {
+  background: rgba(109, 109, 110, 0.5);
 }
 
-/* ========== Статистика ========== */
-.hero-stats {
+/* ========== Stats ========== */
+.netflix-hero-stats {
   display: flex;
-  gap: 2rem;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.hero-stat {
+.netflix-hero-stat {
   display: flex;
   flex-direction: column;
 }
 
-.hero-stat strong {
-  font-size: 1.3rem;
+.netflix-hero-stat strong {
+  font-size: 1.5rem;
   font-weight: 800;
+  color: #fff;
 }
 
-.hero-stat span {
+.netflix-hero-stat span {
   font-size: 0.75rem;
-  opacity: 0.7;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* ========== Visual ========== */
-.hero-visual {
-  display: flex;
-  gap: 1rem;
-  position: relative;
-  z-index: 1;
-  flex-shrink: 0;
+.netflix-hero-stat-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.hero-visual-card {
-  width: 100px;
-  height: 120px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform var(--transition);
-}
-
-.hero-visual-card:nth-child(2) {
-  transform: translateY(-20px);
-}
-
-.hero-visual-card:hover {
-  transform: translateY(-8px) scale(1.05);
-}
-
-.hero-visual-card:nth-child(2):hover {
-  transform: translateY(-28px) scale(1.05);
-}
-
-/* ========== Адаптив ========== */
+/* ========== Responsive ========== */
 @media (max-width: 768px) {
-  .hero {
-    padding: 2rem 1.5rem;
-    flex-direction: column;
-    text-align: center;
+  .netflix-hero {
+    min-height: 70vh;
   }
 
-  .hero-title {
+  .netflix-hero-title {
+    font-size: 2rem;
+  }
+
+  .netflix-hero-desc {
+    font-size: 0.95rem;
+  }
+
+  .netflix-hero-btn {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .netflix-hero-stats {
+    gap: 1rem;
+  }
+
+  .netflix-hero-stat strong {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .netflix-hero {
+    min-height: 60vh;
+  }
+
+  .netflix-hero-content {
+    padding-bottom: 12%;
+  }
+
+  .netflix-hero-title {
     font-size: 1.6rem;
   }
 
-  .hero-buttons {
-    justify-content: center;
+  .netflix-hero-buttons {
+    flex-direction: column;
   }
 
-  .hero-stats {
+  .netflix-hero-btn {
     justify-content: center;
-  }
-
-  .hero-visual {
-    display: none;
   }
 }

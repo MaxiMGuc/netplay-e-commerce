@@ -1,24 +1,26 @@
 import { useMemo, useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import SportFilter from '../../components/SportFilter/SportFilter'
 import CategoryFilter from '../../components/CategoryFilter/CategoryFilter'
 import ProductGrid from '../../components/ProductGrid/ProductGrid'
 import products from '../../data/products'
 import './Catalog.css'
 
-// Варианты сортировки
-const sortOptions = [
-  { value: 'popular', label: 'По популярности' },
-  { value: 'price-asc', label: 'Сначала дешёвые' },
-  { value: 'price-desc', label: 'Сначала дорогие' },
-  { value: 'rating', label: 'По рейтингу' },
-  { value: 'name', label: 'По названию' },
-]
-
 // Catalog — страница каталога с фильтрами и сортировкой
 function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [sortBy, setSortBy] = useState('popular')
+  const { t } = useTranslation()
+
+  // Варианты сортировки
+  const sortOptions = [
+    { value: 'popular', label: t('catalog.sortPopular') },
+    { value: 'price-asc', label: t('catalog.sortPriceAsc') },
+    { value: 'price-desc', label: t('catalog.sortPriceDesc') },
+    { value: 'rating', label: t('catalog.sortRating') },
+    { value: 'name', label: t('catalog.sortName') },
+  ]
 
   // Текущие фильтры из URL
   const currentSport = searchParams.get('sport') || 'Все'
@@ -101,13 +103,20 @@ function Catalog() {
 
   const hasActiveFilters = currentSport !== 'Все' || currentCategory !== 'Все' || searchQuery
 
+  // Получение правильного склонения для количества товаров
+  const getProductWord = (count) => {
+    if (count === 1) return t('catalog.product_one')
+    if (count >= 2 && count <= 4) return t('catalog.product_few')
+    return t('catalog.product_many')
+  }
+
   return (
     <main className="catalog">
       {/* Хлебные крошки */}
       <nav className="catalog-breadcrumbs">
-        <Link to="/">Главная</Link>
+        <Link to="/">{t('catalog.home')}</Link>
         <span>/</span>
-        <span className="catalog-breadcrumb-current">Каталог</span>
+        <span className="catalog-breadcrumb-current">{t('catalog.catalog')}</span>
         {currentSport !== 'Все' && (
           <>
             <span>/</span>
@@ -119,10 +128,10 @@ function Catalog() {
       <div className="catalog-header">
         <h1 className="catalog-title">
           {searchQuery
-            ? `Результаты поиска: «${searchQuery}»`
+            ? t('catalog.searchResults', { query: searchQuery })
             : currentSport !== 'Все'
-            ? `${currentSport} — каталог`
-            : 'Каталог товаров'}
+            ? t('catalog.sportCatalog', { sport: currentSport })
+            : t('catalog.catalogTitle')}
         </h1>
       </div>
 
@@ -136,11 +145,11 @@ function Catalog() {
       <div className="catalog-toolbar">
         <div className="catalog-toolbar-left">
           <p className="catalog-count">
-            {filtered.length} {filtered.length === 1 ? 'товар' : filtered.length < 5 ? 'товара' : 'товаров'}
+            {filtered.length} {getProductWord(filtered.length)}
           </p>
           {priceRange && filtered.length > 1 && (
             <span className="catalog-price-range">
-              от {priceRange.min.toLocaleString('ru-RU')} ₽ до {priceRange.max.toLocaleString('ru-RU')} ₽
+              {t('catalog.from')} ${priceRange.min.toLocaleString('en-US')} {t('catalog.to')} ${priceRange.max.toLocaleString('en-US')}
             </span>
           )}
         </div>
@@ -148,7 +157,7 @@ function Catalog() {
         <div className="catalog-toolbar-right">
           {hasActiveFilters && (
             <button className="catalog-reset-btn" onClick={handleResetFilters}>
-              Сбросить фильтры
+              {t('catalog.resetFilters')}
             </button>
           )}
           <select

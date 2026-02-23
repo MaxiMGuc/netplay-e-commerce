@@ -1,0 +1,105 @@
+/* ========== Language Switcher - Netflix Dark ========== */
+.lang-switcher {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lang-switcher-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: transparent;
+  border: 1px solid #666;
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e5e5e5;
+  transition: all var(--transition);
+}
+
+.lang-switcher-btn:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.lang-code {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+}
+
+.lang-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+  color: #999;
+}
+
+.lang-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown */
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  min-width: 80px;
+  z-index: 200;
+  overflow: hidden;
+  animation: langDropdown 0.15s ease-out;
+}
+
+@keyframes langDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: #ccc;
+  transition: background 0.15s;
+}
+
+.lang-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lang-option.active {
+  background: rgba(229, 9, 20, 0.15);
+  color: #fff;
+  font-weight: 600;
+}
+
+.lang-name {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: lowercase;
+}
+
+.lang-check {
+  color: var(--primary);
+  margin-left: auto;
+}

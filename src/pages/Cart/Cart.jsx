@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useCart } from '../../context/CartContext'
 import { useToast } from '../../context/ToastContext'
 import './Cart.css'
@@ -7,19 +8,20 @@ import './Cart.css'
 function Cart() {
   const { items, updateQuantity, removeFromCart, clearCart, totalItems, totalPrice } = useCart()
   const { showToast } = useToast()
+  const { t } = useTranslation()
 
   const handleRemove = (item) => {
     removeFromCart(item.id)
-    showToast(`${item.name} удалён из корзины`, 'info')
+    showToast(t('cart.removed', { name: item.name }), 'info')
   }
 
   const handleClear = () => {
     clearCart()
-    showToast('Корзина очищена', 'info')
+    showToast(t('cart.cleared'), 'info')
   }
 
   // Расчёт доставки
-  const deliveryPrice = totalPrice >= 5000 ? 0 : 300
+  const deliveryPrice = totalPrice >= 99 ? 0 : 10
   const finalPrice = totalPrice + deliveryPrice
 
   // Пустая корзина
@@ -28,12 +30,12 @@ function Cart() {
       <div className="cart-page">
         <div className="cart-empty">
           <span className="cart-empty-icon">🛒</span>
-          <h1 className="cart-empty-title">Корзина пуста</h1>
+          <h1 className="cart-empty-title">{t('cart.empty')}</h1>
           <p className="cart-empty-text">
-            Добавьте товары из каталога, чтобы оформить заказ
+            {t('cart.emptyText')}
           </p>
           <Link to="/catalog" className="cart-empty-btn">
-            Перейти в каталог
+            {t('cart.goToCatalog')}
           </Link>
         </div>
       </div>
@@ -43,9 +45,9 @@ function Cart() {
   return (
     <div className="cart-page">
       <div className="cart-header">
-        <h1 className="cart-title">Корзина</h1>
+        <h1 className="cart-title">{t('cart.title')}</h1>
         <button className="cart-clear-btn" onClick={handleClear}>
-          Очистить корзину
+          {t('cart.clear')}
         </button>
       </div>
 
@@ -63,7 +65,7 @@ function Cart() {
                   {item.name}
                 </Link>
                 <p className="cart-item-meta">{item.sport} / {item.category}</p>
-                <p className="cart-item-price-single">{item.price.toLocaleString('ru-RU')} ₽ за шт.</p>
+                <p className="cart-item-price-single">${item.price.toLocaleString('en-US')} {t('cart.perItem')}</p>
               </div>
 
               <div className="cart-item-quantity">
@@ -83,12 +85,12 @@ function Cart() {
               </div>
 
               <p className="cart-item-subtotal">
-                {(item.price * item.quantity).toLocaleString('ru-RU')} ₽
+                ${(item.price * item.quantity).toLocaleString('en-US')}
               </p>
 
               <button
                 className="cart-item-remove"
-                title="Удалить"
+                title={t('productCard.removeFromWishlist')}
                 onClick={() => handleRemove(item)}
               >
                 ✕
@@ -99,40 +101,40 @@ function Cart() {
 
         {/* Итого */}
         <div className="cart-summary">
-          <h2 className="cart-summary-title">Ваш заказ</h2>
+          <h2 className="cart-summary-title">{t('cart.yourOrder')}</h2>
 
           <div className="cart-summary-row">
-            <span>Товаров</span>
-            <span>{totalItems} шт.</span>
+            <span>{t('cart.itemsCount')}</span>
+            <span>{totalItems} {t('cart.pcs')}</span>
           </div>
 
           <div className="cart-summary-row">
-            <span>Стоимость товаров</span>
-            <span>{totalPrice.toLocaleString('ru-RU')} ₽</span>
+            <span>{t('cart.itemsCost')}</span>
+            <span>${totalPrice.toLocaleString('en-US')}</span>
           </div>
 
           <div className="cart-summary-row">
-            <span>Доставка</span>
+            <span>{t('cart.delivery')}</span>
             <span className={deliveryPrice === 0 ? 'cart-free-delivery' : ''}>
-              {deliveryPrice === 0 ? 'Бесплатно' : `${deliveryPrice} ₽`}
+              {deliveryPrice === 0 ? t('cart.free') : `$${deliveryPrice}`}
             </span>
           </div>
 
           {deliveryPrice > 0 && (
             <p className="cart-delivery-hint">
-              До бесплатной доставки: {(5000 - totalPrice).toLocaleString('ru-RU')} ₽
+              {t('cart.freeDeliveryLeft', { amount: (99 - totalPrice).toLocaleString('en-US') })}
             </p>
           )}
 
           <div className="cart-summary-row cart-summary-total">
-            <span>Итого</span>
-            <span>{finalPrice.toLocaleString('ru-RU')} ₽</span>
+            <span>{t('cart.total')}</span>
+            <span>${finalPrice.toLocaleString('en-US')}</span>
           </div>
 
-          <button className="cart-checkout-btn">Оформить заказ</button>
+          <button className="cart-checkout-btn">{t('cart.checkout')}</button>
 
           <Link to="/catalog" className="cart-continue-link">
-            ← Продолжить покупки
+            {t('cart.continueShopping')}
           </Link>
         </div>
       </div>

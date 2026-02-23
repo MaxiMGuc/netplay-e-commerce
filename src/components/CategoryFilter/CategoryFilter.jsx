@@ -3,7 +3,7 @@ import './CategoryFilter.css'
 // CategoryFilter — кнопки для фильтрации по категории
 // active — текущая выбранная категория
 // onChange — функция, вызываемая при клике
-const categories = ['Все', 'Ракетки', 'Обувь', 'Одежда', 'Мячи', 'Воланы', 'Струны', 'Сумки', 'Аксессуары']
+const categories = ['Все', 'Ракетки', 'Обувь', 'Одежда', 'Воланы', 'Струны', 'Сумки', 'Аксессуары']
 
 function CategoryFilter({ active, onChange }) {
   return (

@@ -1,15 +1,38 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
+import { useToast } from '../../context/ToastContext'
 import { useWishlist } from '../../context/WishlistContext'
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher'
 import './Header.css'
 
-// Header — шапка сайта с логотипом, поиском, авторизацией, избранным и корзиной
 function Header() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [scrolled, setScrolled] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
+  const { t } = useTranslation()
+  const { user, signOut } = useAuth()
   const { totalItems } = useCart()
+  const { showToast } = useToast()
   const { totalWishlist } = useWishlist()
+  const isHome = location.pathname === '/'
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const handleSignOut = async () => {
+    await signOut()
+    showToast(t('auth.signedOut'), 'info')
+    navigate('/')
+  }
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
@@ -20,74 +43,88 @@ function Header() {
   }
 
   return (
-    <header className="header">
-      {/* Верхняя полоска */}
-      <div className="header-topbar">
-        <div className="header-topbar-inner">
-          <span>Бесплатная доставка от 5 000 ₽</span>
-          <div className="header-topbar-links">
-            <Link to="/about">О компании</Link>
-            <Link to="/about#contacts">Контакты</Link>
-            <span>📞 +7 (999) 123-45-67</span>
-          </div>
-        </div>
-      </div>
+    <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+      <div className="header-inner">
+        {!isHome && (
+          <button
+            className="header-back-btn"
+            onClick={() => navigate(-1)}
+            title={t('header.back')}
+          >
+            ←
+          </button>
+        )}
 
-      {/* Основная шапка */}
-      <div className="header-main">
-        <div className="header-inner">
-          <Link to="/" className="logo">
-            <span className="logo-icon">🏸</span>
-            <span className="logo-text">
-              <span className="logo-accent">Ракетка</span>Маркет
-            </span>
+        <Link to="/" className="logo">
+          <span className="logo-icon">🏸</span>
+          <span className="logo-text">PIKSURI</span>
+        </Link>
+
+        <nav className="header-nav">
+          <NavLink to="/" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`} end>
+            {t('header.home') || 'Home'}
+          </NavLink>
+          <NavLink to="/catalog" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
+            {t('header.catalog') || 'Catalog'}
+          </NavLink>
+          <NavLink to="/categories" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
+            {t('header.categories') || 'Categories'}
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
+            {t('header.about') || 'About'}
+          </NavLink>
+        </nav>
+
+        <form className="header-search-form" onSubmit={handleSearchSubmit}>
+          <span className="header-search-icon">🔍</span>
+          <input
+            type="text"
+            className="header-search-input"
+            placeholder={t('header.searchPlaceholder')}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              className="header-search-clear"
+              onClick={() => setSearchQuery('')}
+            >
+              ✕
+            </button>
+          )}
+        </form>
+
+        <div className="header-actions">
+          <LanguageSwitcher />
+
+          {user ? (
+            <button className="header-action-link header-user-btn" onClick={handleSignOut} title={t('header.signOut')}>
+              <span className="header-action-icon">👤</span>
+              <span className="header-action-label">
+                {user.user_metadata?.name || t('header.signOut')}
+              </span>
+            </button>
+          ) : (
+            <Link to="/login" className="header-action-link" title={t('header.signIn')}>
+              <span className="header-action-icon">👤</span>
+              <span className="header-action-label">{t('header.signIn')}</span>
+            </Link>
+          )}
+
+          <Link to="/wishlist" className="header-action-link" title={t('header.wishlist')}>
+            <span className="header-action-icon">♡</span>
+            {totalWishlist > 0 && (
+              <span className="header-action-badge">{totalWishlist}</span>
+            )}
           </Link>
 
-          <form className="header-search-form" onSubmit={handleSearchSubmit}>
-            <span className="header-search-icon">🔍</span>
-            <input
-              type="text"
-              className="header-search-input"
-              placeholder="Поиск по каталогу..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                className="header-search-clear"
-                onClick={() => setSearchQuery('')}
-              >
-                ✕
-              </button>
+          <Link to="/cart" className="header-action-link" title={t('header.cart')}>
+            <span className="header-action-icon">🛒</span>
+            {totalItems > 0 && (
+              <span className="header-action-badge">{totalItems}</span>
             )}
-            <button type="submit" className="header-search-submit">
-              Найти
-            </button>
-          </form>
-
-          <div className="header-actions">
-            <Link to="/login" className="header-action-link" title="Войти">
-              <span className="header-action-icon">👤</span>
-              <span className="header-action-label">Войти</span>
-            </Link>
-
-            <Link to="/wishlist" className="header-action-link" title="Избранное">
-              <span className="header-action-icon">♡</span>
-              {totalWishlist > 0 && (
-                <span className="header-action-badge">{totalWishlist}</span>
-              )}
-              <span className="header-action-label">Избранное</span>
-            </Link>
-
-            <Link to="/cart" className="header-action-link" title="Корзина">
-              <span className="header-action-icon">🛒</span>
-              {totalItems > 0 && (
-                <span className="header-action-badge">{totalItems}</span>
-              )}
-              <span className="header-action-label">Корзина</span>
-            </Link>
-          </div>
+          </Link>
         </div>
       </div>
     </header>

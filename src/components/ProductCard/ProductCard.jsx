@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useCart } from '../../context/CartContext'
 import { useWishlist } from '../../context/WishlistContext'
 import { useToast } from '../../context/ToastContext'
@@ -13,6 +14,7 @@ function ProductCard({ product }) {
   const { addToCart } = useCart()
   const { isInWishlist, toggleWishlist } = useWishlist()
   const { showToast } = useToast()
+  const { t } = useTranslation()
   const [imageError, setImageError] = useState(false)
   const [isAdding, setIsAdding] = useState(false)
 
@@ -21,7 +23,7 @@ function ProductCard({ product }) {
   const handleAddToCart = () => {
     addToCart(product)
     setIsAdding(true)
-    showToast(`${product.name} добавлен в корзину`, 'success')
+    showToast(t('productCard.addedToCart', { name: product.name }), 'success')
     setTimeout(() => setIsAdding(false), 600)
   }
 
@@ -30,7 +32,7 @@ function ProductCard({ product }) {
     e.stopPropagation()
     toggleWishlist(product)
     showToast(
-      liked ? 'Удалено из избранного' : 'Добавлено в избранное',
+      liked ? t('productCard.removedFromWishlist') : t('productCard.addedToWishlist'),
       liked ? 'info' : 'success'
     )
   }
@@ -55,7 +57,7 @@ function ProductCard({ product }) {
       <button
         className={`product-wishlist-btn ${liked ? 'active' : ''}`}
         onClick={handleToggleWishlist}
-        title={liked ? 'Убрать из избранного' : 'В избранное'}
+        title={liked ? t('productCard.removeFromWishlist') : t('productCard.addToWishlist')}
       >
         {liked ? '♥' : '♡'}
       </button>
@@ -97,9 +99,9 @@ function ProductCard({ product }) {
 
         {/* Цена */}
         <div className="product-card-prices">
-          <span className="product-card-price">{product.price.toLocaleString('ru-RU')} ₽</span>
+          <span className="product-card-price">${product.price.toLocaleString('en-US')}</span>
           {product.oldPrice && (
-            <span className="product-card-old-price">{product.oldPrice.toLocaleString('ru-RU')} ₽</span>
+            <span className="product-card-old-price">${product.oldPrice.toLocaleString('en-US')}</span>
           )}
         </div>
 
@@ -108,7 +110,7 @@ function ProductCard({ product }) {
           className={`product-card-btn ${isAdding ? 'added' : ''}`}
           onClick={handleAddToCart}
         >
-          {isAdding ? '✓ Добавлено' : 'В корзину'}
+          {isAdding ? t('productCard.added') : t('productCard.addToCart')}
         </button>
       </div>
     </div>

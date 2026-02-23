@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useCart } from '../../context/CartContext'
 import { useWishlist } from '../../context/WishlistContext'
 import { useToast } from '../../context/ToastContext'
@@ -13,6 +14,7 @@ function Product() {
   const { addToCart, isInCart } = useCart()
   const { isInWishlist, toggleWishlist } = useWishlist()
   const { showToast } = useToast()
+  const { t } = useTranslation()
   const [quantity, setQuantity] = useState(1)
   const [activeTab, setActiveTab] = useState('description')
   const [imageError, setImageError] = useState(false)
@@ -26,9 +28,9 @@ function Product() {
       <main className="product-page">
         <div className="product-not-found">
           <span className="product-not-found-icon">🔍</span>
-          <h1>Товар не найден</h1>
-          <p>Возможно, товар был удалён или ссылка неверная.</p>
-          <Link to="/catalog" className="product-back-btn">Вернуться в каталог</Link>
+          <h1>{t('product.notFound')}</h1>
+          <p>{t('product.notFoundDesc')}</p>
+          <Link to="/catalog" className="product-back-btn">{t('product.backToCatalog')}</Link>
         </div>
       </main>
     )
@@ -44,13 +46,13 @@ function Product() {
 
   const handleAddToCart = () => {
     addToCart(product, quantity)
-    showToast(`${product.name} (${quantity} шт.) добавлен в корзину`, 'success')
+    showToast(t('product.addedToCart', { name: product.name, qty: quantity }), 'success')
   }
 
   const handleToggleWishlist = () => {
     toggleWishlist(product)
     showToast(
-      liked ? 'Удалено из избранного' : 'Добавлено в избранное',
+      liked ? t('product.removedFromWishlist') : t('product.addedToWishlist'),
       liked ? 'info' : 'success'
     )
   }
@@ -62,19 +64,19 @@ function Product() {
 
   // Табы
   const tabs = [
-    { key: 'description', label: 'Описание' },
-    { key: 'specs', label: 'Характеристики' },
-    { key: 'reviews', label: `Отзывы (${product.reviews})` },
-    { key: 'delivery', label: 'Доставка' },
+    { key: 'description', label: t('product.descriptionTab') },
+    { key: 'specs', label: t('product.specsTab') },
+    { key: 'reviews', label: t('product.reviewsTab', { count: product.reviews }) },
+    { key: 'delivery', label: t('product.deliveryTab') },
   ]
 
   return (
     <main className="product-page">
       {/* Хлебные крошки */}
       <nav className="product-breadcrumbs">
-        <Link to="/">Главная</Link>
+        <Link to="/">{t('catalog.home')}</Link>
         <span>/</span>
-        <Link to="/catalog">Каталог</Link>
+        <Link to="/catalog">{t('catalog.catalog')}</Link>
         <span>/</span>
         <Link to={`/catalog?sport=${encodeURIComponent(product.sport)}`}>{product.sport}</Link>
         <span>/</span>
@@ -118,15 +120,15 @@ function Product() {
               ))}
             </div>
             <span className="product-rating-num">{product.rating}</span>
-            <span className="product-reviews-count">{product.reviews} отзывов</span>
+            <span className="product-reviews-count">{product.reviews} {t('product.reviews')}</span>
           </div>
 
           {/* Цена */}
           <div className="product-price-block">
-            <span className="product-price-current">{product.price.toLocaleString('ru-RU')} ₽</span>
+            <span className="product-price-current">${product.price.toLocaleString('en-US')}</span>
             {product.oldPrice && (
               <>
-                <span className="product-price-old">{product.oldPrice.toLocaleString('ru-RU')} ₽</span>
+                <span className="product-price-old">${product.oldPrice.toLocaleString('en-US')}</span>
                 <span className="product-price-discount">-{discountPercent}%</span>
               </>
             )}
@@ -138,7 +140,7 @@ function Product() {
           {/* Наличие */}
           <div className="product-availability">
             <span className="product-availability-dot" />
-            В наличии
+            {t('product.inStock')}
           </div>
 
           {/* Количество + Кнопка */}
@@ -161,13 +163,13 @@ function Product() {
             </div>
 
             <button className="product-add-btn" onClick={handleAddToCart}>
-              {inCart ? '🛒 Уже в корзине — добавить ещё' : '🛒 Добавить в корзину'}
+              {inCart ? t('product.alreadyInCart') : t('product.addToCart')}
             </button>
 
             <button
               className={`product-wishlist-btn ${liked ? 'active' : ''}`}
               onClick={handleToggleWishlist}
-              title={liked ? 'Убрать из избранного' : 'В избранное'}
+              title={liked ? t('product.removeFromWishlist') : t('product.addToWishlist')}
             >
               {liked ? '♥' : '♡'}
             </button>
@@ -176,13 +178,13 @@ function Product() {
           {/* Преимущества */}
           <div className="product-perks">
             <div className="product-perk">
-              <span>🚚</span> Бесплатная доставка от 5 000 ₽
+              <span>🚚</span> {t('product.freeDeliveryPerk')}
             </div>
             <div className="product-perk">
-              <span>🔄</span> Возврат 14 дней
+              <span>🔄</span> {t('product.returnPerk')}
             </div>
             <div className="product-perk">
-              <span>✅</span> Гарантия оригинальности
+              <span>✅</span> {t('product.guaranteePerk')}
             </div>
           </div>
         </div>
@@ -207,8 +209,8 @@ function Product() {
             <div className="product-tab-description">
               <p>{product.description}</p>
               <p>
-                Бренд: <strong>Yonex</strong>. Категория: <strong>{product.category}</strong>.
-                Вид спорта: <strong>{product.sport}</strong>.
+                {t('product.brand')}: <strong>Yonex</strong>. {t('product.category')}: <strong>{product.category}</strong>.
+                {t('product.sportType')}: <strong>{product.sport}</strong>.
               </p>
             </div>
           )}
@@ -217,11 +219,11 @@ function Product() {
             <div className="product-tab-specs">
               <table className="product-specs-table">
                 <tbody>
-                  <tr><td>Бренд</td><td>Yonex</td></tr>
-                  <tr><td>Категория</td><td>{product.category}</td></tr>
-                  <tr><td>Вид спорта</td><td>{product.sport}</td></tr>
-                  <tr><td>Артикул</td><td>YNX-{String(product.id).padStart(4, '0')}</td></tr>
-                  <tr><td>Рейтинг</td><td>{product.rating} из 5</td></tr>
+                  <tr><td>{t('product.brand')}</td><td>Yonex</td></tr>
+                  <tr><td>{t('product.category')}</td><td>{product.category}</td></tr>
+                  <tr><td>{t('product.sportType')}</td><td>{product.sport}</td></tr>
+                  <tr><td>{t('product.article')}</td><td>YNX-{String(product.id).padStart(4, '0')}</td></tr>
+                  <tr><td>{t('product.rating')}</td><td>{product.rating} {t('product.outOf5')}</td></tr>
                 </tbody>
               </table>
             </div>
@@ -238,30 +240,30 @@ function Product() {
                         <span key={star} className={star <= Math.round(product.rating) ? 'filled' : ''}>★</span>
                       ))}
                     </div>
-                    <p>{product.reviews} отзывов</p>
+                    <p>{product.reviews} {t('product.reviews')}</p>
                   </div>
                 </div>
               </div>
               <p className="product-reviews-placeholder">
-                Отзывы покупателей скоро появятся здесь. Вы можете оставить первый отзыв!
+                {t('product.reviewsPlaceholder')}
               </p>
             </div>
           )}
 
           {activeTab === 'delivery' && (
             <div className="product-tab-delivery">
-              <h3>Способы доставки</h3>
+              <h3>{t('product.deliveryMethods')}</h3>
               <ul>
-                <li><strong>Курьером по Москве</strong> — 1–2 дня, от 300 ₽ (бесплатно от 5 000 ₽)</li>
-                <li><strong>СДЭК</strong> — 2–5 дней, от 350 ₽</li>
-                <li><strong>Почта России</strong> — 5–10 дней, от 250 ₽</li>
-                <li><strong>Самовывоз</strong> — бесплатно, Москва, ул. Спортивная, 10</li>
+                <li><strong>{t('product.courierMoscow')}</strong> {t('product.courierMoscowDesc')}</li>
+                <li><strong>{t('product.cdek')}</strong> {t('product.cdekDesc')}</li>
+                <li><strong>{t('product.russianPost')}</strong> {t('product.russianPostDesc')}</li>
+                <li><strong>{t('product.pickup')}</strong> {t('product.pickupDesc')}</li>
               </ul>
-              <h3>Оплата</h3>
+              <h3>{t('product.payment')}</h3>
               <ul>
-                <li>Банковская карта онлайн</li>
-                <li>Наличные курьеру при получении</li>
-                <li>Электронные кошельки (ЮMoney, SberPay)</li>
+                <li>{t('product.payCard')}</li>
+                <li>{t('product.payCash')}</li>
+                <li>{t('product.payWallet')}</li>
               </ul>
             </div>
           )}
@@ -272,12 +274,12 @@ function Product() {
       {related.length > 0 && (
         <section className="product-related">
           <div className="product-related-header">
-            <h2 className="product-related-title">Похожие товары</h2>
+            <h2 className="product-related-title">{t('product.relatedProducts')}</h2>
             <Link
               to={`/catalog?sport=${encodeURIComponent(product.sport)}`}
               className="product-related-link"
             >
-              Все товары →
+              {t('product.allProducts')}
             </Link>
           </div>
           <ProductGrid products={related} />

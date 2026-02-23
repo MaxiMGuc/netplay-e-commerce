@@ -1,37 +1,37 @@
-/* ========== Catalog ========== */
+/* ========== Catalog - Netflix Dark ========== */
 .catalog {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: calc(var(--header-height) + 1.5rem) 4% 2rem;
 }
 
-/* ========== Хлебные крошки ========== */
+/* ========== Breadcrumbs ========== */
 .catalog-breadcrumbs {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   font-size: 0.82rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   margin-bottom: 1.25rem;
   flex-wrap: wrap;
 }
 
 .catalog-breadcrumbs a {
-  color: var(--text-secondary);
+  color: var(--text-muted);
   text-decoration: none;
   transition: color var(--transition);
 }
 
 .catalog-breadcrumbs a:hover {
-  color: var(--primary);
+  color: #fff;
 }
 
 .catalog-breadcrumb-current {
-  color: var(--text);
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
-/* ========== Заголовок ========== */
+/* ========== Header ========== */
 .catalog-header {
   margin-bottom: 1rem;
 }
@@ -39,9 +39,10 @@
 .catalog-title {
   font-size: 1.5rem;
   font-weight: 700;
+  color: #fff;
 }
 
-/* ========== Фильтры ========== */
+/* ========== Filters ========== */
 .catalog-filters {
   display: flex;
   flex-direction: column;
@@ -49,7 +50,7 @@
   margin-bottom: 1rem;
 }
 
-/* ========== Тулбар ========== */
+/* ========== Toolbar ========== */
 .catalog-toolbar {
   display: flex;
   align-items: center;
@@ -57,7 +58,7 @@
   gap: 1rem;
   margin-bottom: 1.25rem;
   padding: 0.75rem 1rem;
-  background: var(--bg-white, #fff);
+  background: var(--bg-elevated);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   flex-wrap: wrap;
@@ -78,12 +79,12 @@
 .catalog-count {
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--text);
+  color: #fff;
 }
 
 .catalog-price-range {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 .catalog-reset-btn {
@@ -92,38 +93,43 @@
   border-radius: var(--radius-sm);
   padding: 0.35rem 0.85rem;
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   cursor: pointer;
   transition: all var(--transition);
   font-family: inherit;
 }
 
 .catalog-reset-btn:hover {
-  border-color: var(--error);
-  color: var(--error);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .catalog-sort {
   padding: 0.4rem 0.75rem;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   font-size: 0.82rem;
   font-family: inherit;
-  color: var(--text);
-  background: var(--bg-white, #fff);
+  color: #fff;
+  background: var(--bg-elevated);
   cursor: pointer;
   outline: none;
   transition: border-color var(--transition);
 }
 
-.catalog-sort:focus {
-  border-color: var(--primary);
+.catalog-sort option {
+  background: var(--bg-elevated);
+  color: #fff;
 }
 
-/* ========== Адаптив ========== */
+.catalog-sort:focus {
+  border-color: #fff;
+}
+
+/* ========== Responsive ========== */
 @media (max-width: 700px) {
   .catalog {
-    padding: 1rem;
+    padding: calc(var(--header-height) + 1rem) 3% 1rem;
   }
 
   .catalog-toolbar {

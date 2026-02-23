@@ -1,27 +1,31 @@
-/* ========== CSS Variables ========== */
+/* ========== Netflix-Inspired Dark Theme ========== */
 :root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --primary-light: #eef2ff;
-  --gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
-  --text: #1e293b;
-  --text-secondary: #64748b;
-  --bg: #f8fafc;
-  --bg-white: #ffffff;
-  --border-color: #e2e8f0;
-  --success: #22c55e;
-  --success-bg: #f0fdf4;
-  --error: #ef4444;
-  --error-bg: #fef2f2;
-  --warning: #f59e0b;
-  --warning-bg: #fffbeb;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
+  --primary: #e50914;
+  --primary-dark: #b20710;
+  --primary-light: rgba(229, 9, 20, 0.15);
+  --gradient: linear-gradient(135deg, #e50914, #b20710);
+  --text: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-muted: #808080;
+  --bg: #141414;
+  --bg-card: #1a1a1a;
+  --bg-elevated: #222222;
+  --bg-white: #181818;
+  --border-color: #333333;
+  --success: #46d369;
+  --success-bg: rgba(70, 211, 105, 0.15);
+  --error: #e50914;
+  --error-bg: rgba(229, 9, 20, 0.15);
+  --warning: #f5c518;
+  --warning-bg: rgba(245, 197, 24, 0.15);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.8);
   --transition: 0.2s ease;
+  --header-height: 68px;
 }
 
 /* ========== Global Reset ========== */
@@ -32,11 +36,16 @@
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
 }
 
 /* ========== App Layout ========== */
@@ -44,11 +53,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.app-body {
-  display: flex;
-  flex: 1;
+  background: var(--bg);
 }
 
 .app-content {
@@ -58,33 +63,10 @@ body {
   min-width: 0;
 }
 
-.main {
-  max-width: 1280px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
-  flex: 1;
-}
-
-/* ========== Toolbar ========== */
-.toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.results-count {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
 /* ========== Scrollbar ========== */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -92,18 +74,39 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #444;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #666;
 }
 
 /* ========== Selection ========== */
 ::selection {
   background: var(--primary);
   color: #fff;
+}
+
+/* ========== Breadcrumbs ========== */
+.breadcrumbs {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.breadcrumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.breadcrumbs a:hover {
+  color: #fff;
+}
+
+.breadcrumbs span {
+  color: var(--text-secondary);
 }
 
 /* ========== Toast Notifications ========== */
@@ -124,7 +127,7 @@ body {
   gap: 0.6rem;
   padding: 0.75rem 1.25rem;
   border-radius: var(--radius-md);
-  background: var(--bg-white);
+  background: var(--bg-elevated);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-lg);
   font-size: 0.88rem;
@@ -169,8 +172,8 @@ body {
 }
 
 .toast--info .toast-icon {
-  background: var(--primary-light);
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 .toast-message {
@@ -189,20 +192,11 @@ body {
 }
 
 .toast-close:hover {
-  color: var(--text);
+  color: #fff;
 }
 
 /* ========== Responsive ========== */
 @media (max-width: 700px) {
-  .main {
-    padding: 1rem;
-  }
-
-  .toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
   .toast-container {
     left: 1rem;
     right: 1rem;

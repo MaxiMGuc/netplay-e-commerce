@@ -1,279 +1,267 @@
-/* ========== Home ========== */
-.home {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* ========== Netflix-Style Home ========== */
+.netflix-home {
+  background: var(--bg);
+  min-height: 100vh;
 }
 
-/* ========== Секции ========== */
-.home-section {
-  margin-bottom: 3rem;
+/* ========== Sections ========== */
+.netflix-section {
+  padding: 0 4%;
+  margin-bottom: 2.5rem;
 }
 
-.home-section-header {
+.netflix-section-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 
-.home-section-title {
-  font-size: 1.4rem;
+.netflix-section-title {
+  font-size: 1.3rem;
   font-weight: 700;
-  color: var(--text);
+  color: #fff;
 }
 
-.home-section-link {
+.netflix-section-link {
   font-size: 0.85rem;
-  color: var(--primary);
+  color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  transition: opacity var(--transition);
+  transition: color var(--transition);
 }
 
-.home-section-link:hover {
-  opacity: 0.8;
-  text-decoration: underline;
+.netflix-section-link:hover {
+  color: #fff;
 }
 
-/* ========== Виды спорта ========== */
-.home-sports {
-  margin-bottom: 3rem;
+/* ========== Sports Row ========== */
+.netflix-sports-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.25rem 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.home-sports .home-section-title {
-  margin-bottom: 1rem;
+.netflix-sports-row::-webkit-scrollbar {
+  display: none;
 }
 
-.home-sports-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-.home-sport-card {
+.netflix-sport-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
-  padding: 1.75rem 1rem 1.5rem;
-  background: var(--bg-white, #fff);
-  border: 2px solid var(--border-color);
+  gap: 0.5rem;
+  padding: 1.5rem 2.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   text-decoration: none;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  min-width: 160px;
 }
 
-.home-sport-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient);
-  opacity: 0;
-  transition: opacity var(--transition);
-}
-
-.home-sport-card:hover {
-  border-color: var(--primary);
-  box-shadow: var(--shadow-md);
+.netflix-sport-card:hover {
+  background: #2a2a2a;
+  border-color: #555;
   transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
-.home-sport-card:hover::before {
-  opacity: 1;
-}
-
-.home-sport-icon {
+.netflix-sport-icon {
   font-size: 2.5rem;
 }
 
-.home-sport-name {
-  font-size: 0.95rem;
+.netflix-sport-name {
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text);
+  color: #fff;
 }
 
-.home-sport-count {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
+.netflix-sport-count {
+  font-size: 0.7rem;
+  color: var(--text-muted);
 }
 
-/* ========== Промо-баннеры ========== */
-.home-promo {
+/* ========== Promo Section ========== */
+.netflix-promo-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin-bottom: 3rem;
+  gap: 1rem;
+  padding: 0 4%;
+  margin-bottom: 2.5rem;
 }
 
-.home-promo-card {
+.netflix-promo-card {
   border-radius: var(--radius-lg);
-  padding: 2rem 2.5rem;
+  padding: 2.5rem;
   position: relative;
   overflow: hidden;
-  min-height: 180px;
+  min-height: 200px;
   display: flex;
   align-items: flex-end;
+  background: linear-gradient(135deg, #e50914 0%, #831010 100%);
+  transition: transform 0.3s ease;
 }
 
-.home-promo-card--1 {
-  background: linear-gradient(135deg, #6366f1, #a855f7);
-  color: #fff;
+.netflix-promo-card:hover {
+  transform: scale(1.02);
 }
 
-.home-promo-card--2 {
-  background: linear-gradient(135deg, #10b981, #06b6d4);
-  color: #fff;
+.netflix-promo-card--alt {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
 }
 
-.home-promo-content {
+.netflix-promo-content {
   position: relative;
   z-index: 1;
 }
 
-.home-promo-tag {
+.netflix-promo-tag {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.72rem;
-  font-weight: 600;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.75rem;
+  color: #fff;
 }
 
-.home-promo-card h3 {
+.netflix-promo-card h3 {
   font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 0.85rem;
+  color: #fff;
 }
 
-.home-promo-btn {
+.netflix-promo-btn {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
   text-decoration: none;
   padding: 0.45rem 1rem;
   border-radius: var(--radius-sm);
   font-size: 0.82rem;
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all var(--transition);
 }
 
-.home-promo-btn:hover {
+.netflix-promo-btn:hover {
   background: #fff;
-  color: var(--primary);
+  color: #141414;
   border-color: #fff;
 }
 
-/* ========== Бренды ========== */
-.home-brands-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+/* ========== Brands ========== */
+.netflix-brands-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.25rem 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.home-brand-card {
+.netflix-brands-row::-webkit-scrollbar {
+  display: none;
+}
+
+.netflix-brand-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1.25rem 1rem;
-  background: var(--bg-white, #fff);
+  gap: 0.4rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-elevated);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  transition: all var(--transition);
+  transition: all 0.3s ease;
   text-decoration: none;
+  flex-shrink: 0;
+  min-width: 120px;
 }
 
-.home-brand-card:hover {
-  border-color: var(--primary);
-  box-shadow: var(--shadow-sm);
+.netflix-brand-card:hover {
+  border-color: #555;
   transform: translateY(-2px);
+  background: #2a2a2a;
 }
 
-.home-brand-logo {
-  font-size: 2rem;
+.netflix-brand-logo {
+  font-size: 1.8rem;
 }
 
-.home-brand-name {
-  font-size: 0.88rem;
+.netflix-brand-name {
+  font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-secondary);
 }
 
-/* ========== Преимущества ========== */
-.home-features {
+/* ========== Features ========== */
+.netflix-features {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-  margin-top: 1rem;
+  gap: 1rem;
+  padding: 2rem 4%;
+  border-top: 1px solid var(--border-color);
+  margin-top: 1.5rem;
 }
 
-.home-feature {
+.netflix-feature {
   text-align: center;
-  padding: 1.75rem 1.25rem;
-  background: var(--bg-white, #fff);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  transition: box-shadow var(--transition);
+  padding: 1.5rem 1rem;
 }
 
-.home-feature:hover {
-  box-shadow: var(--shadow-sm);
-}
-
-.home-feature-icon {
+.netflix-feature-icon {
   font-size: 2rem;
   display: block;
   margin-bottom: 0.75rem;
 }
 
-.home-feature h3 {
-  font-size: 0.92rem;
+.netflix-feature h3 {
+  font-size: 0.88rem;
   font-weight: 600;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
+  color: #fff;
 }
 
-.home-feature p {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+.netflix-feature p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
   line-height: 1.5;
 }
 
-/* ========== Адаптив ========== */
+/* ========== Responsive ========== */
 @media (max-width: 768px) {
-  .home {
-    padding: 1rem;
+  .netflix-section {
+    padding: 0 3%;
   }
 
-  .home-sports-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .home-promo {
+  .netflix-promo-section {
     grid-template-columns: 1fr;
+    padding: 0 3%;
   }
 
-  .home-brands-grid {
+  .netflix-features {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .home-features {
-    grid-template-columns: repeat(2, 1fr);
+    padding: 1.5rem 3%;
   }
 }
 
 @media (max-width: 480px) {
-  .home-features {
+  .netflix-features {
     grid-template-columns: 1fr;
+  }
+
+  .netflix-section-title {
+    font-size: 1.1rem;
   }
 }

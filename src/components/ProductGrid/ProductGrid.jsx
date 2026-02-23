@@ -1,8 +1,7 @@
 import ProductCard from '../ProductCard/ProductCard'
 import './ProductGrid.css'
 
-// ProductGrid — сетка карточек товаров
-// Принимает массив products и отображает их в виде сетки
+// ProductGrid — grid layout for product cards
 function ProductGrid({ products }) {
   if (products.length === 0) {
     return (
@@ -16,6 +15,19 @@ function ProductGrid({ products }) {
 
   return (
     <div className="product-grid">
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  )
+}
+
+// ProductRow — Netflix-style horizontal scroll row
+export function ProductRow({ products }) {
+  if (products.length === 0) return null
+
+  return (
+    <div className="product-row">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}

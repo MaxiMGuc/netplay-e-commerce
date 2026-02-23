@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useToast } from '../../context/ToastContext'
 import './Footer.css'
 
@@ -7,11 +8,12 @@ import './Footer.css'
 function Footer() {
   const [email, setEmail] = useState('')
   const { showToast } = useToast()
+  const { t } = useTranslation()
 
   const handleSubscribe = (e) => {
     e.preventDefault()
     if (email.trim()) {
-      showToast('Спасибо за подписку! Скоро пришлём промокод.', 'success')
+      showToast(t('footer.subscribed'), 'success')
       setEmail('')
     }
   }
@@ -22,18 +24,18 @@ function Footer() {
       <div className="footer-newsletter">
         <div className="footer-newsletter-inner">
           <div className="footer-newsletter-text">
-            <h3>Подпишитесь на рассылку</h3>
-            <p>Получайте скидки до 15% и узнавайте о новинках первыми</p>
+            <h3>{t('footer.newsletterTitle')}</h3>
+            <p>{t('footer.newsletterDesc')}</p>
           </div>
           <form className="footer-newsletter-form" onSubmit={handleSubscribe}>
             <input
               type="email"
-              placeholder="Ваш email"
+              placeholder={t('footer.emailPlaceholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <button type="submit">Подписаться</button>
+            <button type="submit">{t('footer.subscribe')}</button>
           </form>
         </div>
       </div>
@@ -44,10 +46,9 @@ function Footer() {
           <div className="footer-columns">
             {/* Логотип и описание */}
             <div className="footer-col footer-col--brand">
-              <h3 className="footer-logo">🏸 РакеткаМаркет</h3>
+              <h3 className="footer-logo">{t('footer.brandName')}</h3>
               <p className="footer-desc">
-                Интернет-магазин снаряжения для ракеточного спорта.
-                Бадминтон, теннис, настольный теннис, сквош.
+                {t('footer.brandDesc')}
               </p>
               <div className="footer-social">
                 <a href="#" className="footer-social-link" title="Telegram">📱</a>
@@ -59,51 +60,51 @@ function Footer() {
 
             {/* Каталог */}
             <div className="footer-col">
-              <h4 className="footer-heading">Каталог</h4>
+              <h4 className="footer-heading">{t('footer.catalogHeading')}</h4>
               <ul className="footer-links">
-                <li><Link to="/catalog?sport=Бадминтон">Бадминтон</Link></li>
-                <li><Link to="/catalog?sport=Теннис">Теннис</Link></li>
-                <li><Link to="/catalog?sport=Настольный теннис">Настольный теннис</Link></li>
-                <li><Link to="/catalog?sport=Сквош">Сквош</Link></li>
-                <li><Link to="/catalog">Все товары</Link></li>
+                <li><Link to="/catalog?sport=Бадминтон">{t('home.badminton')}</Link></li>
+                <li><Link to="/catalog?sport=Теннис">{t('home.tennis')}</Link></li>
+                <li><Link to="/catalog?sport=Настольный теннис">{t('home.tableTennis')}</Link></li>
+                <li><Link to="/catalog?sport=Сквош">{t('home.squash')}</Link></li>
+                <li><Link to="/catalog">{t('footer.allProducts')}</Link></li>
               </ul>
             </div>
 
             {/* Покупателям */}
             <div className="footer-col">
-              <h4 className="footer-heading">Покупателям</h4>
+              <h4 className="footer-heading">{t('footer.customersHeading')}</h4>
               <ul className="footer-links">
-                <li><Link to="/about">О компании</Link></li>
-                <li><Link to="/categories">Категории</Link></li>
-                <li><Link to="/about#contacts">Контакты</Link></li>
-                <li><Link to="/cart">Корзина</Link></li>
-                <li><Link to="/wishlist">Избранное</Link></li>
+                <li><Link to="/about">{t('footer.aboutCompany')}</Link></li>
+                <li><Link to="/categories">{t('footer.categoriesLink')}</Link></li>
+                <li><Link to="/about#contacts">{t('footer.contacts')}</Link></li>
+                <li><Link to="/cart">{t('footer.cartLink')}</Link></li>
+                <li><Link to="/wishlist">{t('footer.wishlistLink')}</Link></li>
               </ul>
             </div>
 
             {/* Контакты */}
             <div className="footer-col">
-              <h4 className="footer-heading">Контакты</h4>
+              <h4 className="footer-heading">{t('footer.contactsHeading')}</h4>
               <ul className="footer-links footer-contacts">
                 <li>
                   <span className="footer-contact-icon">📞</span>
                   <div>
-                    <strong>+7 (999) 123-45-67</strong>
-                    <span>Пн–Пт: 9:00–20:00</span>
+                    <strong>{t('footer.phone')}</strong>
+                    <span>{t('footer.workHours')}</span>
                   </div>
                 </li>
                 <li>
                   <span className="footer-contact-icon">✉️</span>
                   <div>
-                    <strong>info@racketmarket.ru</strong>
-                    <span>Ответим в течение часа</span>
+                    <strong>{t('footer.emailContact')}</strong>
+                    <span>{t('footer.emailResponseTime')}</span>
                   </div>
                 </li>
                 <li>
                   <span className="footer-contact-icon">📍</span>
                   <div>
-                    <strong>Москва</strong>
-                    <span>ул. Спортивная, д. 10</span>
+                    <strong>{t('footer.city')}</strong>
+                    <span>{t('footer.address')}</span>
                   </div>
                 </li>
               </ul>
@@ -115,7 +116,7 @@ function Footer() {
       {/* Нижняя полоса */}
       <div className="footer-bottom">
         <div className="footer-bottom-inner">
-          <p>© 2026 РакеткаМаркет. Все права защищены.</p>
+          <p>{t('footer.copyright')}</p>
           <div className="footer-payments">
             <span className="footer-payment" title="Visa">💳</span>
             <span className="footer-payment" title="Mastercard">💳</span>

@@ -1,4 +1,4 @@
-/* ========== CategoryFilter ========== */
+/* ========== CategoryFilter - Netflix Dark ========== */
 .category-filter {
   display: flex;
   gap: 0.4rem;
@@ -9,8 +9,8 @@
   padding: 0.35rem 0.85rem;
   border: 1px solid var(--border-color);
   border-radius: 20px;
-  background: var(--bg-white, #fff);
-  color: var(--text-secondary);
+  background: transparent;
+  color: var(--text-muted);
   font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
@@ -19,12 +19,12 @@
 }
 
 .category-filter-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: #fff;
+  color: #fff;
 }
 
 .category-filter-btn.active {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
+  background: #fff;
+  color: #141414;
+  border-color: #fff;
 }

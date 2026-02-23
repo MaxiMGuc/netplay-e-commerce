@@ -1,47 +1,53 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import './HeroBanner.css'
 
-// HeroBanner — главный баннер на главной странице
 function HeroBanner() {
+  const { t } = useTranslation()
+
   return (
-    <section className="hero">
-      <div className="hero-content">
-        <span className="hero-badge">Бесплатная доставка от 5 000 ₽</span>
-        <h1 className="hero-title">
-          Всё для ракеточного<br />спорта в одном месте
-        </h1>
-        <p className="hero-subtitle">
-          Оригинальные ракетки, обувь, одежда и аксессуары от ведущих мировых
-          брендов. Бадминтон, теннис, настольный теннис и сквош.
-        </p>
-        <div className="hero-buttons">
-          <Link to="/catalog" className="hero-btn hero-btn--primary">
-            Перейти в каталог
-          </Link>
-          <Link to="/catalog?badge=Скидка" className="hero-btn hero-btn--outline">
-            🔥 Акции и скидки
-          </Link>
-        </div>
-        <div className="hero-stats">
-          <div className="hero-stat">
-            <strong>500+</strong>
-            <span>товаров</span>
-          </div>
-          <div className="hero-stat">
-            <strong>8</strong>
-            <span>брендов</span>
-          </div>
-          <div className="hero-stat">
-            <strong>10 000+</strong>
-            <span>покупателей</span>
-          </div>
-        </div>
+    <section className="netflix-hero">
+      <div className="netflix-hero-bg">
+        <div className="netflix-hero-gradient" />
       </div>
 
-      <div className="hero-visual">
-        <div className="hero-visual-card">🏸</div>
-        <div className="hero-visual-card">🎾</div>
-        <div className="hero-visual-card">🏓</div>
+      <div className="netflix-hero-content">
+        <span className="netflix-hero-badge">🏸 {t('hero.badge')}</span>
+        <h1 className="netflix-hero-title">
+          {t('hero.title').split('\n').map((line, i) => (
+            <span key={i}>{line}{i === 0 && <br />}</span>
+          ))}
+        </h1>
+        <p className="netflix-hero-desc">
+          {t('hero.subtitle')}
+        </p>
+        <div className="netflix-hero-buttons">
+          <Link to="/catalog" className="netflix-hero-btn netflix-hero-btn--primary">
+            <span className="netflix-hero-btn-icon">▶</span>
+            {t('hero.catalogBtn')}
+          </Link>
+          <Link to="/categories" className="netflix-hero-btn netflix-hero-btn--secondary">
+            <span className="netflix-hero-btn-icon">ℹ</span>
+            {t('hero.saleBtn')}
+          </Link>
+        </div>
+
+        <div className="netflix-hero-stats">
+          <div className="netflix-hero-stat">
+            <strong>500+</strong>
+            <span>{t('hero.products')}</span>
+          </div>
+          <div className="netflix-hero-stat-divider" />
+          <div className="netflix-hero-stat">
+            <strong>8</strong>
+            <span>{t('hero.brands')}</span>
+          </div>
+          <div className="netflix-hero-stat-divider" />
+          <div className="netflix-hero-stat">
+            <strong>10K+</strong>
+            <span>{t('hero.customers')}</span>
+          </div>
+        </div>
       </div>
     </section>
   )
