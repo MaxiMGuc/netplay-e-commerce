@@ -85,6 +85,41 @@
   background: rgba(0, 0, 0, 0.8);
 }
 
+.product-delete-btn {
+  position: absolute;
+  top: 44px;
+  right: 8px;
+  z-index: 3;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  opacity: 0;
+}
+
+.product-card:hover .product-delete-btn {
+  opacity: 1;
+}
+
+.product-delete-btn:hover:not(:disabled) {
+  transform: scale(1.12);
+  background: rgba(229, 9, 20, 0.85);
+}
+
+.product-delete-btn:disabled {
+  opacity: 0.85;
+  cursor: wait;
+}
+
 /* ========== Image ========== */
 .product-card-image-link {
   display: block;

@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { isSupabaseConfigured, supabase } from '../lib/supabase'
 
 const AuthContext = createContext()
+const ADMIN_EMAIL = 'maksym.huk@gmail.com'
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
@@ -65,8 +66,11 @@ export function AuthProvider({ children }) {
     return { error }
   }
 
+  const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL
+
   const value = {
     user,
+    isAdmin,
     loading,
     signUp,
     signIn,

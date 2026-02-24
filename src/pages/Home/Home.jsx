@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import HeroBanner from '../../components/HeroBanner/HeroBanner'
 import { ProductRow } from '../../components/ProductGrid/ProductGrid'
-import products from '../../data/products'
+import { useProducts } from '../../context/ProductsContext'
 import './Home.css'
 
 function Home() {
   const { t } = useTranslation()
+  const { products } = useProducts()
   const hits = products.filter((p) => p.badge === 'Хит')
   const sale = products.filter((p) => p.badge === 'Скидка')
   const newArrivals = products.filter((p) => p.badge === 'Новинка')

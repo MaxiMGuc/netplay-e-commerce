@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { useCart } from '../../context/CartContext'
 import { useWishlist } from '../../context/WishlistContext'
 import { useToast } from '../../context/ToastContext'
+import { useProducts } from '../../context/ProductsContext'
 import ProductGrid from '../../components/ProductGrid/ProductGrid'
-import products from '../../data/products'
 import './Product.css'
 
 // Product — страница одного товара
@@ -14,6 +14,7 @@ function Product() {
   const { addToCart, isInCart } = useCart()
   const { isInWishlist, toggleWishlist } = useWishlist()
   const { showToast } = useToast()
+  const { products } = useProducts()
   const { t } = useTranslation()
   const [quantity, setQuantity] = useState(1)
   const [activeTab, setActiveTab] = useState('description')

@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import SportFilter from '../../components/SportFilter/SportFilter'
 import CategoryFilter from '../../components/CategoryFilter/CategoryFilter'
 import ProductGrid from '../../components/ProductGrid/ProductGrid'
-import products from '../../data/products'
+import { useAuth } from '../../context/AuthContext'
+import { useProducts } from '../../context/ProductsContext'
 import './Catalog.css'
 
 // Catalog — страница каталога с фильтрами и сортировкой
@@ -16,6 +17,8 @@ function Catalog() {
   const [isAutoLoading, setIsAutoLoading] = useState(false)
   const loadMoreRef = useRef(null)
   const autoLoadingRef = useRef(false)
+  const { products } = useProducts()
+  const { isAdmin } = useAuth()
   const { t } = useTranslation()
 
   // Варианты сортировки
@@ -199,6 +202,11 @@ function Catalog() {
         </div>
 
         <div className="catalog-toolbar-right">
+          {isAdmin && (
+            <Link to="/admin/products#create-product" className="catalog-admin-add-btn">
+              + Добавить товар
+            </Link>
+          )}
           {hasActiveFilters && (
             <button className="catalog-reset-btn" onClick={handleResetFilters}>
               {t('catalog.resetFilters')}

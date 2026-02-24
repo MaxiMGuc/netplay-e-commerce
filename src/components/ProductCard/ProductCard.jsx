@@ -1,7 +1,9 @@
 import { memo, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
+import { useProducts } from '../../context/ProductsContext'
 import { useWishlist } from '../../context/WishlistContext'
 import { useToast } from '../../context/ToastContext'
 import './ProductCard.css'
@@ -57,12 +59,15 @@ function getOptimizedProductImage(imageUrl) {
 
 // ProductCard — отображает один товар
 function ProductCard({ product }) {
+  const { isAdmin } = useAuth()
   const { addToCart } = useCart()
+  const { removeProduct } = useProducts()
   const { isInWishlist, toggleWishlist } = useWishlist()
   const { showToast } = useToast()
   const { t } = useTranslation()
   const [imageError, setImageError] = useState(false)
   const [isAdding, setIsAdding] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const liked = isInWishlist(product.id)
   const productImage = useMemo(
@@ -85,6 +90,22 @@ function ProductCard({ product }) {
       liked ? t('productCard.removedFromWishlist') : t('productCard.addedToWishlist'),
       liked ? 'info' : 'success'
     )
+  }
+
+  const handleDeleteProduct = async (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    setIsDeleting(true)
+    const { error } = await removeProduct(product)
+    setIsDeleting(false)
+
+    if (error) {
+      showToast(`Не удалось удалить товар: ${error.message}`, 'error')
+      return
+    }
+
+    showToast('Товар удален', 'info')
   }
 
   // Скидка в процентах
@@ -111,6 +132,17 @@ function ProductCard({ product }) {
       >
         {liked ? '♥' : '♡'}
       </button>
+
+      {isAdmin && (
+        <button
+          className="product-delete-btn"
+          onClick={handleDeleteProduct}
+          title="Удалить товар"
+          disabled={isDeleting}
+        >
+          {isDeleting ? '...' : '🗑'}
+        </button>
+      )}
 
       {/* Картинка */}
       <Link to={`/product/${product.id}`} className="product-card-image-link">

@@ -14,7 +14,7 @@ function Header() {
   const navigate = useNavigate()
   const location = useLocation()
   const { t } = useTranslation()
-  const { user, signOut } = useAuth()
+  const { user, isAdmin, signOut } = useAuth()
   const { totalItems } = useCart()
   const { showToast } = useToast()
   const { totalWishlist } = useWishlist()
@@ -73,6 +73,11 @@ function Header() {
           <NavLink to="/about" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
             {t('header.about') || 'About'}
           </NavLink>
+          {isAdmin && (
+            <NavLink to="/admin/products" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
+              Admin
+            </NavLink>
+          )}
         </nav>
 
         <form className="header-search-form" onSubmit={handleSearchSubmit}>

@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import products from '../../data/products'
 import ProductGrid from '../../components/ProductGrid/ProductGrid'
+import { useProducts } from '../../context/ProductsContext'
 import './Categories.css'
 
 // Categories — страница со всеми категориями и видами спорта
 function Categories() {
   const { t } = useTranslation()
+  const { products } = useProducts()
 
   const sports = [
     { name: t('home.badminton'), sportKey: 'Бадминтон', icon: '🏸', color: '#6366f1' },
