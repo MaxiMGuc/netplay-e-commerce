@@ -1,0 +1,137 @@
+/* ========== Categories - Netflix Dark ========== */
+.categories-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 1.5rem) 4% 2rem;
+}
+
+.categories-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.categories-section {
+  margin-bottom: 2.5rem;
+}
+
+.categories-subtitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+/* ========== Sports Grid ========== */
+.categories-sports-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.categories-sport-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.categories-sport-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: #555;
+  background: #2a2a2a;
+}
+
+.categories-sport-icon {
+  font-size: 3rem;
+}
+
+.categories-sport-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ========== Product Types Grid ========== */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.75rem;
+}
+
+.categories-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.categories-card:hover {
+  border-color: var(--primary);
+  background: #2a2a2a;
+}
+
+.categories-card-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.categories-card-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.15rem;
+}
+
+.categories-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ========== Section Header ========== */
+.categories-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.categories-section-header .categories-subtitle {
+  margin-bottom: 0;
+}
+
+.categories-view-all {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.categories-view-all:hover {
+  color: #fff;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .categories-page {
+    padding: calc(var(--header-height) + 1rem) 3% 1rem;
+  }
+
+  .categories-sports-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

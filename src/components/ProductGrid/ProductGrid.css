@@ -1,0 +1,65 @@
+/* ========== Netflix-Style Product Grid ========== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.5rem;
+}
+
+/* ========== Empty State ========== */
+.product-grid-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.product-grid-empty-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.product-grid-empty p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.product-grid-empty-hint {
+  font-size: 0.9rem !important;
+  font-weight: 400 !important;
+  color: var(--text-secondary) !important;
+  margin-top: 0.3rem;
+}
+
+/* ========== Horizontal Scroll Row ========== */
+.product-row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0.5rem 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.product-row::-webkit-scrollbar {
+  display: none;
+}
+
+.product-row .product-card {
+  min-width: 240px;
+  max-width: 280px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .product-row .product-card {
+    min-width: 160px;
+    max-width: 200px;
+  }
+}

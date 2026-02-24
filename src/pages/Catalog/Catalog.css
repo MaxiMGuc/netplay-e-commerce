@@ -1,0 +1,256 @@
+/* ========== Catalog - Netflix Dark ========== */
+.catalog {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 1.5rem) 4% 2rem;
+}
+
+/* ========== Breadcrumbs ========== */
+.catalog-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.catalog-breadcrumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.catalog-breadcrumbs a:hover {
+  color: #fff;
+}
+
+.catalog-breadcrumb-current {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ========== Header ========== */
+.catalog-header {
+  margin-bottom: 1rem;
+}
+
+.catalog-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ========== Filters ========== */
+.catalog-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* ========== Toolbar ========== */
+.catalog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.catalog-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.catalog-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.catalog-count {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.catalog-price-range {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.catalog-reset-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+}
+
+.catalog-reset-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.catalog-sort {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-family: inherit;
+  color: #fff;
+  background: var(--bg-elevated);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.catalog-sort option {
+  background: var(--bg-elevated);
+  color: #fff;
+}
+
+.catalog-sort:focus {
+  border-color: #fff;
+}
+
+.catalog-load-more-sentinel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.25rem;
+  min-height: 52px;
+}
+
+.catalog-load-more-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.catalog-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.catalog-skeleton-card {
+  height: 420px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.shimmer {
+  background: linear-gradient(110deg, #1b1b1b 8%, #2a2a2a 18%, #1b1b1b 33%);
+  background-size: 200% 100%;
+  animation: catalog-skeleton-shimmer 1.1s linear infinite;
+}
+
+.catalog-skeleton-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}
+
+.catalog-skeleton-info {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex: 1;
+}
+
+.catalog-skeleton-sport {
+  width: 38%;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.catalog-skeleton-name {
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+}
+
+.catalog-skeleton-name--short {
+  width: 72%;
+}
+
+.catalog-skeleton-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.1rem;
+}
+
+.catalog-skeleton-stars {
+  width: 64px;
+  height: 10px;
+  border-radius: 6px;
+}
+
+.catalog-skeleton-rating-num {
+  width: 28px;
+  height: 10px;
+  border-radius: 6px;
+}
+
+.catalog-skeleton-price {
+  width: 40%;
+  height: 14px;
+  border-radius: 6px;
+  margin-top: 0.15rem;
+}
+
+.catalog-skeleton-btn {
+  margin-top: auto;
+  width: 100%;
+  height: 34px;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes catalog-skeleton-shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 700px) {
+  .catalog {
+    padding: calc(var(--header-height) + 1rem) 3% 1rem;
+  }
+
+  .catalog-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .catalog-toolbar-left,
+  .catalog-toolbar-right {
+    justify-content: space-between;
+  }
+
+  .catalog-skeleton-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .catalog-skeleton-card {
+    height: 360px;
+  }
+}

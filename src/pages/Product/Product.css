@@ -1,0 +1,564 @@
+/* ========== Product Page - Netflix Dark ========== */
+.product-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 1.5rem) 4% 2rem;
+}
+
+/* ========== Breadcrumbs ========== */
+.product-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.product-breadcrumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.product-breadcrumbs a:hover {
+  color: #fff;
+}
+
+.product-breadcrumb-current {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ========== Main Section ========== */
+.product-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* ========== Image ========== */
+.product-image-block {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 1;
+  border: 1px solid var(--border-color);
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-image-block:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-page-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.product-page-badge--hit {
+  background: var(--warning);
+  color: #000;
+}
+
+.product-page-badge--sale {
+  background: var(--primary);
+  color: #fff;
+}
+
+.product-page-badge--new {
+  background: var(--success);
+  color: #000;
+}
+
+/* ========== Details ========== */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.product-sport-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+
+.product-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+}
+
+/* ========== Rating ========== */
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-stars-row {
+  display: flex;
+  gap: 1px;
+}
+
+.product-star {
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.product-star.filled {
+  color: var(--warning);
+}
+
+.product-rating-num {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--success);
+}
+
+.product-reviews-count {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ========== Price ========== */
+.product-price-block {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.product-price-current {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.product-price-old {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.product-price-discount {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ========== Description ========== */
+.product-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ========== Availability ========== */
+.product-availability {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--success);
+}
+
+.product-availability-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ========== Actions ========== */
+.product-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.product-qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.product-qty-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--bg-elevated);
+  font-size: 1.1rem;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+
+.product-qty-btn:hover:not(:disabled) {
+  background: var(--primary);
+}
+
+.product-qty-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.product-qty-value {
+  width: 40px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+  background: var(--bg-card);
+}
+
+.product-add-btn {
+  flex: 1;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+  font-family: inherit;
+  height: 44px;
+}
+
+.product-add-btn:hover {
+  background: var(--primary-dark);
+}
+
+.product-wishlist-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  cursor: pointer;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.product-wishlist-btn:hover,
+.product-wishlist-btn.active {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* ========== Perks ========== */
+.product-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  margin-top: 0.5rem;
+}
+
+.product-perk {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* ========== Tabs ========== */
+.product-tabs-section {
+  margin-bottom: 3rem;
+}
+
+.product-tabs-nav {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
+.product-tab-btn {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+
+.product-tab-btn:hover {
+  color: #fff;
+}
+
+.product-tab-btn.active {
+  color: #fff;
+  border-bottom-color: var(--primary);
+  font-weight: 600;
+}
+
+.product-tab-content {
+  min-height: 120px;
+}
+
+.product-tab-description p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.product-tab-description p strong {
+  color: #fff;
+}
+
+/* ========== Specs Table ========== */
+.product-specs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-specs-table tr:nth-child(even) {
+  background: var(--bg-elevated);
+}
+
+.product-specs-table td {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.product-specs-table td:first-child {
+  color: var(--text-muted);
+  width: 40%;
+}
+
+.product-specs-table td:last-child {
+  font-weight: 500;
+  color: #fff;
+}
+
+/* ========== Reviews ========== */
+.product-reviews-summary {
+  margin-bottom: 1.5rem;
+}
+
+.product-reviews-score {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-reviews-big-num {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.product-reviews-stars {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.product-reviews-stars span {
+  color: #444;
+}
+
+.product-reviews-stars span.filled {
+  color: var(--warning);
+}
+
+.product-reviews-score p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.product-reviews-placeholder {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding: 1.5rem;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+/* ========== Delivery Tab ========== */
+.product-tab-delivery h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  color: #fff;
+}
+
+.product-tab-delivery h3:first-child {
+  margin-top: 0;
+}
+
+.product-tab-delivery ul {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.product-tab-delivery li {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.product-tab-delivery li strong {
+  color: #fff;
+}
+
+/* ========== Not Found ========== */
+.product-not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.product-not-found-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.product-not-found h1 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.product-not-found p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.product-back-btn {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ========== Related Products ========== */
+.product-related {
+  margin-top: 1rem;
+}
+
+.product-related-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.product-related-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.product-related-link {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.product-related-link:hover {
+  color: #fff;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .product-page {
+    padding: calc(var(--header-height) + 1rem) 3% 1rem;
+  }
+
+  .product-main {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .product-name {
+    font-size: 1.3rem;
+  }
+
+  .product-price-current {
+    font-size: 1.5rem;
+  }
+
+  .product-actions {
+    flex-wrap: wrap;
+  }
+
+  .product-add-btn {
+    flex: 1 1 100%;
+    order: 3;
+  }
+
+  .product-tabs-nav {
+    gap: 0;
+  }
+
+  .product-tab-btn {
+    padding: 0.6rem 0.85rem;
+    font-size: 0.82rem;
+  }
+}

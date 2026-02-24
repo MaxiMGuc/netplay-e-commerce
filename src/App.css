@@ -1,0 +1,209 @@
+/* ========== Netflix-Inspired Dark Theme ========== */
+:root {
+  --primary: #e50914;
+  --primary-dark: #b20710;
+  --primary-light: rgba(229, 9, 20, 0.15);
+  --gradient: linear-gradient(135deg, #e50914, #b20710);
+  --text: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-muted: #808080;
+  --bg: #141414;
+  --bg-card: #1a1a1a;
+  --bg-elevated: #222222;
+  --bg-white: #181818;
+  --border-color: #333333;
+  --success: #46d369;
+  --success-bg: rgba(70, 211, 105, 0.15);
+  --error: #e50914;
+  --error-bg: rgba(229, 9, 20, 0.15);
+  --warning: #f5c518;
+  --warning-bg: rgba(245, 197, 24, 0.15);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.8);
+  --transition: 0.2s ease;
+  --header-height: 68px;
+}
+
+/* ========== Global Reset ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+}
+
+/* ========== App Layout ========== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* ========== Selection ========== */
+::selection {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ========== Breadcrumbs ========== */
+.breadcrumbs {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.breadcrumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.breadcrumbs a:hover {
+  color: #fff;
+}
+
+.breadcrumbs span {
+  color: var(--text-secondary);
+}
+
+/* ========== Toast Notifications ========== */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+  pointer-events: auto;
+  animation: toastSlideIn 0.3s ease;
+  max-width: 360px;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.toast--success .toast-icon {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.toast--error .toast-icon {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.toast--info .toast-icon {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.toast-message {
+  flex: 1;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  padding: 0.2rem;
+  transition: color var(--transition);
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  color: #fff;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 700px) {
+  .toast-container {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .toast {
+    max-width: none;
+  }
+}
