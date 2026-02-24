@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 
 // Ключ для localStorage
-const CART_STORAGE_KEY = 'racketmarket_cart'
+const CART_STORAGE_KEY = 'netplay_cart'
 
 // Загрузить корзину из localStorage
 function loadCart() {

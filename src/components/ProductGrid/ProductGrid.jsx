@@ -1,8 +1,9 @@
+import { memo } from 'react'
 import ProductCard from '../ProductCard/ProductCard'
 import './ProductGrid.css'
 
 // ProductGrid — grid layout for product cards
-function ProductGrid({ products }) {
+const ProductGrid = memo(function ProductGrid({ products }) {
   if (products.length === 0) {
     return (
       <div className="product-grid-empty">
@@ -20,10 +21,10 @@ function ProductGrid({ products }) {
       ))}
     </div>
   )
-}
+})
 
 // ProductRow — Netflix-style horizontal scroll row
-export function ProductRow({ products }) {
+export const ProductRow = memo(function ProductRow({ products }) {
   if (products.length === 0) return null
 
   return (
@@ -33,6 +34,6 @@ export function ProductRow({ products }) {
       ))}
     </div>
   )
-}
+})
 
 export default ProductGrid

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 
-const WISHLIST_STORAGE_KEY = 'racketmarket_wishlist'
+const WISHLIST_STORAGE_KEY = 'netplay_wishlist'
 
 function loadWishlist() {
   try {

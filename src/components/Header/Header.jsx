@@ -57,7 +57,7 @@ function Header() {
 
         <Link to="/" className="logo">
           <span className="logo-icon">🏸</span>
-          <span className="logo-text">PIKSURI</span>
+          <span className="logo-text">NETPLAY</span>
         </Link>
 
         <nav className="header-nav">

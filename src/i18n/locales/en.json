@@ -222,7 +222,7 @@
     "emailPlaceholder": "Your email",
     "subscribe": "Subscribe",
     "subscribed": "Thanks for subscribing! We'll send you a promo code soon.",
-    "brandName": "🏸 RacketMarket",
+    "brandName": "🏸 NETPLAY",
     "brandDesc": "Online store for racquet sports equipment. Badminton, tennis, table tennis, squash.",
     "catalogHeading": "Catalog",
     "allProducts": "All products",
@@ -235,15 +235,15 @@
     "contactsHeading": "Contacts",
     "phone": "+7 (999) 123-45-67",
     "workHours": "Mon–Fri: 9:00–20:00",
-    "emailContact": "info@racketmarket.ru",
+    "emailContact": "info@netplay.store",
     "emailResponseTime": "We'll reply within an hour",
     "city": "Moscow",
     "address": "Sportivnaya str., 10",
-    "copyright": "© 2026 RacketMarket. All rights reserved."
+    "copyright": "© 2026 NETPLAY. All rights reserved."
   },
   "about": {
     "title": "About Us",
-    "companyName": "RacketMarket",
+    "companyName": "NETPLAY",
     "companyDesc1": "We are a specialized online store for racquet sports equipment. We have been operating since 2020 and offer a wide range of products for badminton, tennis, table tennis and squash.",
     "companyDesc2": "Our team consists of passionate athletes who will help you choose the right equipment for any level: from beginners to professionals.",
     "advantages": "Our Advantages",

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import SportFilter from '../../components/SportFilter/SportFilter'
@@ -9,8 +9,13 @@ import './Catalog.css'
 
 // Catalog — страница каталога с фильтрами и сортировкой
 function Catalog() {
+  const PAGE_SIZE = 12
   const [searchParams, setSearchParams] = useSearchParams()
   const [sortBy, setSortBy] = useState('popular')
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const [isAutoLoading, setIsAutoLoading] = useState(false)
+  const loadMoreRef = useRef(null)
+  const autoLoadingRef = useRef(false)
   const { t } = useTranslation()
 
   // Варианты сортировки
@@ -90,6 +95,45 @@ function Catalog() {
 
     return result
   }, [currentSport, currentCategory, searchQuery, sortBy])
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE)
+  }, [currentSport, currentCategory, searchQuery, sortBy])
+
+  const visibleProducts = useMemo(
+    () => filtered.slice(0, visibleCount),
+    [filtered, visibleCount]
+  )
+  const hasMore = visibleCount < filtered.length
+  const skeletonCount = Math.min(PAGE_SIZE, Math.max(filtered.length - visibleCount, 0))
+
+  useEffect(() => {
+    const node = loadMoreRef.current
+    if (!node || !hasMore) return undefined
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry?.isIntersecting && !autoLoadingRef.current) {
+          autoLoadingRef.current = true
+          setIsAutoLoading(true)
+          window.setTimeout(() => {
+            setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, filtered.length))
+            setIsAutoLoading(false)
+            autoLoadingRef.current = false
+          }, 220)
+        }
+      },
+      {
+        root: null,
+        rootMargin: '300px 0px',
+        threshold: 0.01,
+      }
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [hasMore, filtered.length])
 
   // Диапазон цен
   const priceRange = useMemo(() => {
@@ -175,7 +219,38 @@ function Catalog() {
       </div>
 
       {/* Сетка товаров */}
-      <ProductGrid products={filtered} />
+      <ProductGrid products={visibleProducts} />
+      {isAutoLoading && skeletonCount > 0 && (
+        <div className="catalog-skeleton-grid" aria-hidden="true">
+          {Array.from({ length: skeletonCount }).map((_, idx) => (
+            <div key={idx} className="catalog-skeleton-card">
+              <div className="catalog-skeleton-image shimmer" />
+              <div className="catalog-skeleton-info">
+                <div className="catalog-skeleton-sport shimmer" />
+                <div className="catalog-skeleton-name shimmer" />
+                <div className="catalog-skeleton-name catalog-skeleton-name--short shimmer" />
+                <div className="catalog-skeleton-rating">
+                  <div className="catalog-skeleton-stars shimmer" />
+                  <div className="catalog-skeleton-rating-num shimmer" />
+                </div>
+                <div className="catalog-skeleton-price shimmer" />
+                <div className="catalog-skeleton-btn shimmer" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {hasMore && (
+        <div
+          ref={loadMoreRef}
+          className="catalog-load-more-sentinel"
+          aria-label={t('catalog.loading', { defaultValue: 'Загрузка товаров' })}
+        >
+          <span className="catalog-load-more-text">
+            {t('catalog.loading', { defaultValue: 'Загружаем еще товары...' })}
+          </span>
+        </div>
+      )}
     </main>
   )
 }

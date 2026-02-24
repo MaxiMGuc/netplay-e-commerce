@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useCart } from '../../context/CartContext'
@@ -8,6 +8,52 @@ import './ProductCard.css'
 
 // Изображение-заглушка при ошибке загрузки
 const FALLBACK_IMAGE = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMzAwIDMwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNmMWY1ZjkiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2NiZDVlMSIgZm9udC1zaXplPSI0OCI+8J+TtzwvdGV4dD48L3N2Zz4='
+const UNSPLASH_BASE = 'https://source.unsplash.com/900x900/?'
+
+const imageFallbackBySportCategory = {
+  'Бадминтон|Ракетки': `${UNSPLASH_BASE}badminton,racket`,
+  'Бадминтон|Обувь': `${UNSPLASH_BASE}badminton,shoes`,
+  'Бадминтон|Воланы': `${UNSPLASH_BASE}badminton,shuttlecock`,
+  'Бадминтон|Струны': `${UNSPLASH_BASE}badminton,stringing`,
+  'Бадминтон|Одежда': `${UNSPLASH_BASE}badminton,sportswear`,
+  'Бадминтон|Аксессуары': `${UNSPLASH_BASE}badminton,gear`,
+  'Бадминтон|Сумки': `${UNSPLASH_BASE}badminton,bag`,
+  'Теннис|Ракетки': `${UNSPLASH_BASE}tennis,racket`,
+  'Теннис|Обувь': `${UNSPLASH_BASE}tennis,shoes`,
+  'Теннис|Струны': `${UNSPLASH_BASE}tennis,stringing`,
+  'Теннис|Мячи': `${UNSPLASH_BASE}tennis,balls`,
+  'Теннис|Одежда': `${UNSPLASH_BASE}tennis,sportswear`,
+  'Теннис|Аксессуары': `${UNSPLASH_BASE}tennis,gear`,
+  'Теннис|Сумки': `${UNSPLASH_BASE}tennis,bag`,
+  'Настольный теннис|Ракетки': `${UNSPLASH_BASE}table-tennis,paddle`,
+  'Настольный теннис|Обувь': `${UNSPLASH_BASE}table-tennis,shoes`,
+  'Настольный теннис|Мячи': `${UNSPLASH_BASE}table-tennis,ball`,
+  'Настольный теннис|Одежда': `${UNSPLASH_BASE}table-tennis,sportswear`,
+  'Настольный теннис|Сумки': `${UNSPLASH_BASE}table-tennis,bag`,
+  'Настольный теннис|Аксессуары': `${UNSPLASH_BASE}table-tennis,equipment`,
+  'Сквош|Ракетки': `${UNSPLASH_BASE}squash,racket`,
+  'Сквош|Обувь': `${UNSPLASH_BASE}squash,shoes`,
+  'Сквош|Мячи': `${UNSPLASH_BASE}squash,ball`,
+  'Сквош|Струны': `${UNSPLASH_BASE}squash,stringing`,
+  'Сквош|Одежда': `${UNSPLASH_BASE}squash,sportswear`,
+  'Сквош|Сумки': `${UNSPLASH_BASE}squash,bag`,
+  'Сквош|Аксессуары': `${UNSPLASH_BASE}squash,gear`,
+}
+
+function getFallbackProductImage(product) {
+  const key = `${product.sport}|${product.category}`
+  return (
+    imageFallbackBySportCategory[key] ||
+    `${UNSPLASH_BASE}${encodeURIComponent(`${product.sport} ${product.category}`)}`
+  )
+}
+
+function getOptimizedProductImage(imageUrl) {
+  if (!imageUrl || !imageUrl.includes('cdn.shopify.com')) return imageUrl
+  const hasWidthParam = /[?&]width=\d+/.test(imageUrl)
+  if (hasWidthParam) return imageUrl
+  return `${imageUrl}${imageUrl.includes('?') ? '&' : '?'}width=640`
+}
 
 // ProductCard — отображает один товар
 function ProductCard({ product }) {
@@ -19,6 +65,10 @@ function ProductCard({ product }) {
   const [isAdding, setIsAdding] = useState(false)
 
   const liked = isInWishlist(product.id)
+  const productImage = useMemo(
+    () => getOptimizedProductImage(product.image),
+    [product.image]
+  )
 
   const handleAddToCart = () => {
     addToCart(product)
@@ -65,11 +115,20 @@ function ProductCard({ product }) {
       {/* Картинка */}
       <Link to={`/product/${product.id}`} className="product-card-image-link">
         <img
-          src={imageError ? FALLBACK_IMAGE : product.image}
+          src={imageError ? getFallbackProductImage(product) : productImage}
           alt={product.name}
           className="product-card-image"
           loading="lazy"
-          onError={() => setImageError(true)}
+          decoding="async"
+          fetchPriority="low"
+          onError={(e) => {
+            if (imageError) {
+              e.currentTarget.onerror = null
+              e.currentTarget.src = FALLBACK_IMAGE
+              return
+            }
+            setImageError(true)
+          }}
         />
       </Link>
 
@@ -117,4 +176,4 @@ function ProductCard({ product }) {
   )
 }
 
-export default ProductCard
+export default memo(ProductCard)
