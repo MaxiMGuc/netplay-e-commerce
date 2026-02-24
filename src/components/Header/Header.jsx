@@ -78,6 +78,11 @@ function Header() {
               Admin
             </NavLink>
           )}
+          {isAdmin && (
+            <NavLink to="/admin/products#create-product" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
+              + Добавить товар
+            </NavLink>
+          )}
         </nav>
 
         <form className="header-search-form" onSubmit={handleSearchSubmit}>
